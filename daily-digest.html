@@ -1,0 +1,596 @@
+<!DOCTYPE html><script type="application/json" id="cowork-artifact-meta">
+{
+  "name": "Daily Digest",
+  "schemaVersion": 1,
+  "description": "Daily MDSA-focused digest: morning outlook, Blockchain & DLT, AI & Tech, Montis Section, European bonds (Gov & Corporate), future instruments (warrants), markets, live crypto prices (Crypto.com), Polymarket signals, geopolitics.",
+  "mcpTools": [
+    "mcp__ee585d8d-282b-4fa4-923b-ac2f7b69f914__get_ticker",
+    "mcp__d86aec37-b114-4b4c-b25b-1526589cd0bc__search_threads",
+    "mcp__d86aec37-b114-4b4c-b25b-1526589cd0bc__get_thread"
+  ],
+  "mcpServerNames": ["Crypto.com","Gmail","Gmail"]
+}
+</script>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daily Digest — Matteo</title>
+<style>
+:root{color-scheme:light;--bg:#f4f3ef;--card:#ffffff;--border:#eeede8;--text:#111111;--muted:#999;--pill:#f7f6f2;--up:#16a34a;--dn:#dc2626;--neu:#d97706}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:20px 14px 60px}
+.hdr{max-width:900px;margin:0 auto 20px;display:flex;align-items:flex-end;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.hdr h1{font-size:22px;font-weight:900;letter-spacing:-.5px}
+.hdr .tag{font-size:11px;color:var(--muted);margin-top:2px}
+.hdr-r{display:flex;align-items:center;gap:8px}
+.dbadge{font-size:11px;font-weight:700;color:#555;background:#e8e6e0;padding:4px 11px;border-radius:20px}
+.rbtn{background:#111;color:#fff;border:none;padding:6px 14px;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:5px;transition:background .2s}
+.rbtn:hover{background:#333}
+.rbtn:disabled{background:#aaa;cursor:not-allowed}
+.rbtn.loading .spin{animation:spin .7s linear infinite}
+.toggle{display:inline-flex;background:#fff;border:1px solid var(--border);border-radius:20px;padding:2px;gap:0}
+.toggle a{font-size:10px;font-weight:800;color:#888;text-decoration:none;padding:4px 11px;border-radius:18px;transition:all .15s;letter-spacing:.3px}
+.toggle a.active{background:#111;color:#fff}
+.toggle a:hover:not(.active){color:#111}
+@keyframes spin{to{transform:rotate(360deg)}}
+.g{max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.fw{grid-column:1/-1}
+.card{background:var(--card);border-radius:14px;padding:16px 18px;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.ch{display:flex;align-items:center;gap:7px;margin-bottom:13px}
+.ci{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.ci-fin{background:#fff8e1}.ci-mkts{background:#f0f9ff}.ci-nl{background:#f0f4ff}
+.ci-poly{background:#fff3f0}.ci-ai{background:#f0f9ff}.ci-geo{background:#f0fdf4}.ci-sum{background:#fdf4ff}
+.ci-bc{background:#f0fdf4}.ci-montis{background:#e0e7ff}.ci-bonds{background:#fef3c7}.ci-war{background:#f3e8ff}
+.ct{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:#111}
+.cs{font-size:10px;color:var(--muted);margin-top:1px}
+.mbar{display:flex;gap:8px;flex-wrap:wrap}
+.mitem{background:var(--pill);border-radius:9px;padding:8px 11px;flex:1;min-width:100px}
+.mitem .mn{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:3px}
+.mitem .mv{font-size:15px;font-weight:800;color:var(--text);font-variant-numeric:tabular-nums}
+.mitem .mc{font-size:11px;font-weight:700;margin-top:2px}
+.up{color:var(--up)}.dn{color:var(--dn)}.neu{color:var(--neu)}
+.vix-item{background:#fdf4ff}.fg-item{background:#fff8f0}
+.cgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.citem{background:var(--pill);border-radius:9px;padding:9px 11px}
+.csym{font-size:10px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.4px}
+.cpx{font-size:15px;font-weight:800;color:var(--text);margin:3px 0 2px;font-variant-numeric:tabular-nums}
+.cchg{font-size:11px;font-weight:700}
+.cmeta{font-size:9px;color:#c0bfbb;margin-top:2px;line-height:1.4}
+.csrc{font-size:9px;color:#bbb;margin-top:3px}
+.csrc a{color:#aaa;text-decoration:none}
+.csrc a:hover{color:#555;text-decoration:underline}
+.src-link{display:inline-flex;align-items:center;gap:3px;font-size:9px;font-weight:700;color:#999;text-decoration:none;background:rgba(0,0,0,.05);padding:2px 7px;border-radius:8px;margin-top:5px;transition:background .15s,color .15s}
+.src-link:hover{background:rgba(0,0,0,.1);color:#333}
+.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pi{background:var(--pill);border-radius:9px;padding:9px 11px;text-decoration:none;display:block;transition:background .15s}
+.pi:hover{background:#eeeee8}
+.pl{font-size:11px;color:#666;line-height:1.35;margin-bottom:5px}
+.po{font-size:20px;font-weight:800;color:var(--text)}
+.pc{font-size:11px;font-weight:700;margin-top:2px}
+.pc.new{color:#7c3aed}
+.pi-src{font-size:9px;color:#bbb;margin-top:3px}
+.bl{list-style:none;padding:0;margin:0}
+.bl li{font-size:13px;color:#444;padding:6px 0 6px 14px;position:relative;border-bottom:1px solid var(--border);line-height:1.5}
+.bl li:last-child{border-bottom:none}
+.bl li::before{content:'▸';position:absolute;left:0;color:#ddd;font-size:9px;top:8px}
+.bl li strong{display:block;font-size:11px;font-weight:800;color:#111;margin-bottom:1px}
+.wgrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.wi{background:var(--pill);border-radius:9px;padding:10px 12px}
+.wi-tag{display:inline-block;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;padding:2px 7px;border-radius:10px;margin-bottom:6px}
+.tag-war{background:#fee2e2;color:#991b1b}
+.tag-crisis{background:#fff3cd;color:#92400e}
+.tag-econ{background:#e0f2fe;color:#075985}
+.tag-elect{background:#f3e8ff;color:#6b21a8}
+.tag-energy{background:#fef3c7;color:#92400e}
+.wi-title{font-size:12px;font-weight:700;color:#111;margin-bottom:4px;line-height:1.3}
+.wi-body{font-size:11px;color:#666;line-height:1.45}
+.wi-src{display:inline-flex;align-items:center;gap:3px;font-size:9px;font-weight:700;color:#999;text-decoration:none;background:rgba(0,0,0,.05);padding:2px 7px;border-radius:8px;margin-top:5px;transition:background .15s,color .15s}
+.wi-src:hover{background:rgba(0,0,0,.1);color:#333}
+.spills{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
+.sp{background:var(--pill);border-radius:9px;padding:9px 11px;text-align:center}
+.spl{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);margin-bottom:4px}
+.spv{font-size:12px;font-weight:700;color:#111;line-height:1.3}
+.sr{display:flex;align-items:flex-start;gap:9px;background:var(--pill);border-radius:9px;padding:12px 14px}
+.dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:4px}
+.dot.g{background:var(--up)}.dot.r{background:var(--dn)}.dot.y{background:var(--neu)}
+.sn{font-size:12px;color:#555}
+.live{display:inline-flex;align-items:center;gap:4px;font-size:9px;font-weight:800;color:var(--up);background:#f0fdf4;padding:2px 7px;border-radius:20px;margin-left:5px}
+.ldot{width:4px;height:4px;border-radius:50%;background:var(--up);animation:pulse 1.5s infinite}
+.est{display:inline-flex;align-items:center;font-size:9px;font-weight:700;color:#888;background:#f5f4f0;padding:2px 7px;border-radius:20px;margin-left:5px}
+.tag-montis{display:inline-flex;align-items:center;font-size:9px;font-weight:800;color:#3730a3;background:#e0e7ff;padding:2px 7px;border-radius:20px;margin-left:5px;text-transform:uppercase;letter-spacing:.4px}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.sk{background:linear-gradient(90deg,#eeeee8 25%,#e5e4de 50%,#eeeee8 75%);background-size:200% 100%;animation:sh 1.3s infinite;border-radius:5px;height:12px;margin:5px 0}
+.sk.h2{height:18px}.sk.h3{height:46px}
+@keyframes sh{to{background-position:-200% 0}}
+.err{font-size:11px;color:var(--dn);background:#fef2f2;border-radius:7px;padding:7px 10px}
+.empty{font-size:12px;color:var(--muted);font-style:italic}
+.btable{width:100%;border-collapse:collapse;font-size:11px}
+.btable th{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);text-align:left;padding:7px 8px;border-bottom:1px solid var(--border)}
+.btable td{padding:7px 8px;border-bottom:1px solid var(--border);font-variant-numeric:tabular-nums}
+.btable tr:last-child td{border-bottom:none}
+.btable .b-flag{font-size:11px;font-weight:700;color:#111}
+.btable .b-yield{font-weight:800}
+.btable .b-chg{font-size:10px;font-weight:700}
+.btable .b-src{display:inline-flex;align-items:center;font-size:9px;font-weight:700;color:#999;text-decoration:none;background:rgba(0,0,0,.05);padding:1px 5px;border-radius:6px;margin-left:5px;transition:background .15s,color .15s}
+.btable .b-src:hover{background:#111;color:#fff}
+html{scroll-behavior:smooth;scroll-padding-top:14px}
+.nav{max-width:900px;margin:0 auto 14px;display:flex;gap:6px;flex-wrap:wrap}
+.nav-btn{font-size:11px;font-weight:700;color:#444;background:#fff;border:1px solid var(--border);padding:6px 11px;border-radius:20px;text-decoration:none;transition:all .15s;display:inline-flex;align-items:center;gap:4px;white-space:nowrap;cursor:pointer}
+.nav-btn:hover{background:#111;color:#fff;border-color:#111}
+.nav-btn:active{transform:scale(.96)}
+@media(max-width:640px){.g{grid-template-columns:1fr}.fw{grid-column:1}.cgrid{grid-template-columns:1fr 1fr}.spills{grid-template-columns:1fr 1fr}.pgrid{grid-template-columns:1fr 1fr}.wgrid{grid-template-columns:1fr 1fr}.mbar{gap:6px}.btable{font-size:10px}.btable th,.btable td{padding:5px 4px}.nav{overflow-x:auto;flex-wrap:nowrap;padding-bottom:4px;-webkit-overflow-scrolling:touch}.nav::-webkit-scrollbar{display:none}}
+@media(min-width:1000px){.hdr,.nav,.g{max-width:1120px}.cgrid{grid-template-columns:repeat(8,1fr)}.wgrid{grid-template-columns:repeat(3,1fr)}.nav{position:sticky;top:8px;z-index:10;background:rgba(244,243,239,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:9px 12px;border-radius:24px;box-shadow:0 2px 12px rgba(0,0,0,.05)}.card{padding:18px 20px}}
+@media(min-width:1280px){.hdr,.nav,.g{max-width:1200px}}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div>
+    <h1>📰 Daily Digest</h1>
+    <div class="tag">Outlook · Blockchain & DLT · AI · Bonds · Warrants · Markets · Geopolitics — Matteo</div>
+  </div>
+  <div class="hdr-r">
+    <div class="toggle">
+      <a href="daily-digest.html" class="active">📰 Daily</a>
+      <a href="weekly-digest.html">📊 Weekly</a>
+    </div>
+    <div class="dbadge" id="dateBadge">Sunday, June 14, 2026</div>
+    <button class="rbtn" id="rbtn" onclick="refreshAll()">
+      <span class="spin">↻</span> Refresh
+    </button>
+  </div>
+</div>
+
+<nav class="nav" aria-label="Sections">
+  <a href="#sec-outlook" class="nav-btn">✨ Outlook</a>
+  <a href="#sec-bc" class="nav-btn">⛓️ Blockchain &amp; DLT</a>
+  <a href="#sec-ai" class="nav-btn">🤖 AI &amp; Tech</a>
+  <a href="#sec-montis" class="nav-btn">🏛️ Montis Watch</a>
+  <a href="#sec-bonds" class="nav-btn">📜 Bonds Europe</a>
+  <a href="#sec-warrants" class="nav-btn">🎫 Warrants</a>
+  <a href="#sec-markets" class="nav-btn">📈 Markets</a>
+  <a href="#sec-crypto" class="nav-btn">💰 Crypto</a>
+  <a href="#sec-poly" class="nav-btn">📊 Polymarket</a>
+  <a href="#sec-geo" class="nav-btn">🌍 World</a>
+</nav>
+
+<div class="g">
+
+  <!-- 1. MORNING TAKEAWAYS -->
+  <div class="card fw" id="sec-outlook">
+    <div class="ch">
+      <div class="ci ci-sum">✨</div>
+      <div>
+        <div class="ct">Morning Outlook</div>
+        <div class="cs">What to know today — Sunday, June 14, 2026</div>
+      </div>
+    </div>
+    <div id="sumContent">
+      <div class="spills">
+        <div class="sp"><div class="spl">🚀 SpaceX SPCX +19%</div><div class="spv">$75B largest IPO ever · $161 close · Musk 1st trillionaire</div></div>
+        <div class="sp"><div class="spl">🕊️ Iran deal → 80% prob</div><div class="spv">Brent -4% → $86.5 · Hormuz reopening in play</div></div>
+        <div class="sp"><div class="spl">📈 Jun 13 Rally</div><div class="spv">Dow +0.7% → 51,202 · S&amp;P +0.5% · Nasdaq +0.3%</div></div>
+        <div class="sp"><div class="spl">⚡ ECB +25bp → 2.25%</div><div class="spv">Jun 11 hike · inflation proj 3.0% 2026 · Sep 2nd hike &gt;60%</div></div>
+        <div class="sp"><div class="spl">⛓️ DTCC Jul pilot</div><div class="spv">50+ firms · Goldman · BlackRock · JPM · Oct full launch</div></div>
+        <div class="sp"><div class="spl">🤖 Colorado AI Act Jun 30</div><div class="spv">Financial services scope · high-risk AI disclosure rules</div></div>
+      </div>
+      <div class="sr">
+        <div class="dot g"></div>
+        <div style="flex:1">
+          <strong>🟢 SpaceX IPO historic · Iran deal 80% · Brent -4% · DTCC tokenization July confirmed</strong>
+          <span class="sn"> — Sunday June 14. Weekend recap of a landmark week. (1) <strong>SpaceX SPCX IPO</strong> (June 12): the <strong>largest IPO in history</strong> — $75B raise, $1.75T valuation. Priced at $135, opened at $150, surged +19% to close <strong>$161.11</strong>; Elon Musk became the <strong>world's first trillionaire</strong>. Markets rallied June 13: Dow <strong>+0.7% (+354pts → 51,202)</strong>, S&amp;P <strong>+0.5%</strong>, Nasdaq <strong>+0.3%</strong> — recovering from the June 10 crash. (2) <strong>Iran peace deal</strong>: Trump admin official put the probability at <strong>80%</strong> — Hormuz reopening, nuclear dismantlement, economic incentives. Brent fell <strong>>4% to below $86.5</strong> on June 13. Pakistan PM confirmed final text close; Iran FM said "closer than ever but cautious." Conflicting drafts in Iranian media. (3) <strong>ECB June 11</strong>: First hike since 2023 — +25bp to <strong>2.25%</strong>. Inflation revised to 3.0% for 2026; GDP cut to 0.6%. September 2nd hike priced >60%. (4) <strong>DTCC tokenization July pilot</strong>: 50-firm working group (Goldman Sachs, JPMorgan, BlackRock, Circle, Ripple Prime) — limited production trades July 2026, full service launch October 2026. Assets: Russell 1000 equities, ETFs, US Treasuries. The US CSD is formally going on-chain. CNBC / CoinDesk / ECB June 11-13.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. BLOCKCHAIN & DLT -->
+  <div class="card fw" id="sec-bc">
+    <div class="ch">
+      <div class="ci ci-bc">⛓️</div>
+      <div>
+        <div class="ct">Blockchain &amp; DLT</div>
+        <div class="cs">Infrastructure · Tokenisation · Settlement · CBDC · Stablecoins · June 10, 2026</div>
+      </div>
+    </div>
+    <div id="blockchainContent">
+      <ul class="bl">
+        <li>
+          <strong>🔥 DTCC July pilot confirmed — Ripple Prime joins Goldman, BlackRock, JPMorgan in 50-firm tokenization working group (June 2026)</strong>
+          DTCC has set <strong>July 2026</strong> for limited production trades and <strong>October 2026</strong> for full-service launch of its on-chain securities platform. Ripple Prime confirmed as a participant alongside Goldman Sachs, J.P. Morgan, BlackRock, Circle, and Ondo Finance. Assets in scope: <strong>Russell 1000 equities, major ETFs, US Treasury bills</strong>. DTC Participants will optionally select tokenized record-keeping as standard service. The US CSD incumbent is now formally entering production — direct competitive pressure point for European DLT infrastructure. MDSA read-across: validates institutional adoption timeline; raises urgency for compliant EU alternatives.
+          <br><a class="src-link" href="https://www.coindesk.com/business/2026/05/04/wall-street-giant-dtcc-plans-tokenized-securities-platform-with-july-pilot-october-launch" target="_blank">↗ CoinDesk / Bitcoin Magazine · June 2026</a>
+        </li>
+        <li>
+          <strong>🔥 DLT's unsung power tool — reconciliation as structural competitive advantage (PostTrade360, June 5)</strong>
+          <strong>Vinod Jain</strong> (PostTrade360, June 5) identifies <strong>reconciliation as DLT's "unsung power tool"</strong>: by creating a shared "golden source" between counterparties, DLT platforms naturally eliminate the cost of bilateral reconciliation — one of the most expensive line items in legacy CSD infrastructure. The structural argument goes beyond T+0 or programmability: it challenges the entire economics of traditional post-trade back-office. Direct MDSA read-across: DLT's operational cost advantage becomes a powerful institutional sales vector. PostTrade360 June 5.
+          <br><a class="src-link" href="https://posttrade360.com" target="_blank">↗ PostTrade360 · June 5</a>
+        </li>
+        <li>
+          <strong>🔥 Citi: tokenised securities to reach $5.5 trillion by 2030 — "Wall Street On-Chain" (June 1)</strong>
+          Citi released its landmark report <strong>"Tokenization 2030: Wall Street On-Chain"</strong> on June 1, projecting the tokenised-securities market will grow from <strong>$17bn today to $5.5 trillion by 2030</strong> (base case; conservative: $2.7T, optimistic: $8.2T). Key findings: DTCC, Nasdaq and ICE are all developing on-chain infrastructure; by 2030, 10% of the US short-term Treasury market and 3% of listed equities could be tokenised; stablecoin market projected to reach $1.9T. Released ahead of the Proof of Talk conference in Paris.
+          <br><a class="src-link" href="https://www.coindesk.com/markets/2026/06/01/citi-predicts-the-tokenized-securities-market-will-grow-to-usd5-5-trillion-by-2030" target="_blank">↗ CoinDesk · June 1</a>
+        </li>
+        <li>
+          <strong>🔥 Paxos becomes first SEC-registered blockchain clearing agency in the US (June 4)</strong>
+          The SEC granted <strong>Paxos Securities Settlement Company (PSSC)</strong> registration as a clearing agency under Section 17A of the Exchange Act — making it the <strong>first and only blockchain-native firm</strong> approved as a registered clearing agency and CSD in the United States. 18-month temporary registration with exemptions; the result of 7 years of engagement with the SEC since a 2019 No-Action Letter. PSSC operated a settlement pilot with major financial institutions. This is a watershed for DLT-based post-trade infrastructure: a real blockchain-native CSD now operates legally inside the US regulatory perimeter, challenging the DTCC model. Federal Register / Paxos June 4.
+          <br><a class="src-link" href="https://www.paxos.com/newsroom/sec-registers-paxos-securities-settlement-company-as-a-clearing-agency" target="_blank">↗ Paxos / PostTrade360 · June 4</a>
+        </li>
+        <li>
+          <strong>🔥 Euroclear Sweden migrates to unified Nordic CSD — TCS BaNCS + T2S (June 4)</strong>
+          TCS expanded its partnership with Euroclear Group to migrate <strong>Euroclear Sweden</strong> (and Finland) to a <strong>unified Nordic post-trade platform</strong> powered by <strong>TCS BaNCS for Market Infrastructure</strong> and TCS Quartz. The platform is cloud-ready, scalable, and aligned to European Central Bank's <strong>TARGET2-Securities (T2S)</strong> standards — Euroclear's "One Nordic" vision harmonising two markets under a single CSD infrastructure. Direct MDSA read-across: this is the European CSD consolidation and modernisation trajectory that underpins institutional demand for DLT-compatible settlement rails. TCS / PostTrade360 June 4.
+          <br><a class="src-link" href="https://www.tcs.com/who-we-are/newsroom/press-release/tcs-expands-partnership-euroclear-modernize-sweden-central-securities-depository" target="_blank">↗ TCS / PostTrade360 · June 4</a>
+        </li>
+        <li>
+          <strong>🔥 BIS Project Agorá — 7 central banks deliver unified-ledger prototype (May 28)</strong>
+          The BIS unveiled a working prototype of <strong>Project Agorá</strong> on May 28: a unified ledger enabling tokenised commercial-bank deposits and central-bank reserves on a shared, programmable platform with <strong>atomic multi-currency settlement</strong>. Central banks: Bank of England, NY Fed, Banque de France (Eurosystem), BoJ, BoK, Banco de México, SNB. Smart contracts embed compliance and payment logic directly into transactions, enabling 24/7 cross-border settlement. Advancing to real-value testing.
+          <br><a class="src-link" href="https://posttrade360.com/news/infrastructure/bis-and-major-central-banks-deliver-unified-ledger-for-wholesale-cross-border-payments/" target="_blank">↗ PostTrade360 · May 28</a>
+        </li>
+        <li>
+          <strong>🔥 Survey: 50% of asset managers have started tokenisation projects (Apex Group, May 28)</strong>
+          Apex Group survey: <strong>50%</strong> of asset managers have already deployed tokenisation; <strong>45%</strong> have tokenised private-market assets; <strong>42%</strong> cite expanding investor access as primary driver. Only <strong>7%</strong> feel "fully confident" in technical capabilities — market moves "from experimentation toward implementation." Demand side is ready; infrastructure and expertise are the bottleneck.
+          <br><a class="src-link" href="https://posttrade360.com/news/infrastructure/survey-half-of-asset-managers-have-started-tokenisation-projects/" target="_blank">↗ PostTrade360 · May 28</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 3. AI & TECH -->
+  <div class="card fw" id="sec-ai">
+    <div class="ch">
+      <div class="ci ci-ai">🤖</div>
+      <div>
+        <div class="ct">AI &amp; Technology</div>
+        <div class="cs">Frontier models · Enterprise AI · Regulation · June 10, 2026</div>
+      </div>
+    </div>
+    <div id="aiContent">
+      <ul class="bl">
+        <li>
+          <strong>🔥 Apple WWDC 2026 — Tim Cook's final keynote · Apple Intelligence runs on Google Gemini (June 8)</strong>
+          Apple kicks off its <strong>Worldwide Developers Conference (WWDC 2026)</strong> on June 8, 2026 — Tim Cook's final WWDC keynote as CEO. Apple's on-device AI suite (Apple Intelligence) will run on <strong>Google Gemini</strong>, a confirmed strategic partnership between Apple and Alphabet. Expected announcements: iOS 20, enhanced on-device AI features, potentially a new AI agent framework. This partnership underscores how frontier AI models are embedding into consumer hardware — a key competitive dynamic for enterprise AI deployment. BuildFastWithAI June 7.
+          <br><a class="src-link" href="https://www.buildfastwithai.com/blogs/ai-news-today-june-7-2026" target="_blank">↗ BuildFastWithAI · June 7</a>
+        </li>
+        <li>
+          <strong>🔥 Anthropic public warning — models "may soon be too powerful to control" (June 7)</strong>
+          Anthropic issued a rare public warning on June 7 that its own AI models <strong>may soon exceed human ability to control or correct them</strong>. The statement — unusually candid for an AI lab at a $965bn valuation — signals that internal alignment concerns are now serious enough to warrant public disclosure. This follows Anthropic's Series H funding and its overtaking of OpenAI in enterprise adoption. The governance implications for financial services AI deployment are significant for regulated institutions. BuildFastWithAI June 7.
+          <br><a class="src-link" href="https://www.buildfastwithai.com/blogs/ai-news-today-june-7-2026" target="_blank">↗ BuildFastWithAI · June 7</a>
+        </li>
+        <li>
+          <strong>🔥 Broadcom -15% June 4 — software miss triggers Dow +875pts rotation (June 3-4)</strong>
+          Broadcom's Q2 FY2026 AI semiconductor revenue hit a record <strong>$10.8bn (+143% YoY)</strong>, total revenue $22.19bn (+48%). But revenue missed the <strong>$22.27bn consensus</strong> on a software segment shortfall — sending AVGO <strong>-15% on June 4</strong>. The selloff triggered a dramatic rotation: <strong>Dow +874.86pts (+1.73%)</strong> to record 51,561.93 as investors piled into UnitedHealth (+5%), JPMorgan (+3%), Walmart (+1%). Q3 guidance: AI rev <strong>$16bn (+200%)</strong>, total rev <strong>$29.4bn (+84%)</strong> — the underlying AI demand trajectory is intact. CNBC / Broadcom IR June 4.
+          <br><a class="src-link" href="https://investors.broadcom.com/news-releases/news-release-details/broadcom-inc-announces-second-quarter-fiscal-year-2026-financial" target="_blank">↗ Broadcom IR / CNBC · June 3-4</a>
+        </li>
+        <li>
+          <strong>🔥 Marvell +33% — Jensen Huang: "next trillion-dollar company" at Computex (June 2)</strong>
+          Marvell Technology shares surged <strong>+33%</strong> on June 2 after Nvidia CEO Jensen Huang called Marvell "the next trillion-dollar company" in an onstage discussion with Marvell CEO Matt Murphy at Computex 2026. Huang highlighted Marvell's networking and connectivity chips as critical AI data-center infrastructure — Nvidia has a <strong>$2bn strategic investment</strong> in Marvell. Market cap jumped from $191bn to ~$250bn in a single session. Hewlett Packard Enterprise also surged <strong>+19%</strong> on earnings strength. Source: IBTimes / Motley Fool June 2.
+          <br><a class="src-link" href="https://www.fool.com/investing/2026/06/02/nvidias-jensen-huang-just-gave-marvell-technology-a-huge-boost/" target="_blank">↗ Motley Fool · June 2</a>
+        </li>
+        <li>
+          <strong>🔥 Alphabet $80bn equity raise — first stock sale since 2005, Berkshire $10bn in (June 1)</strong>
+          Alphabet announced <strong>$80bn in equity offerings</strong> on June 1 to fund AI compute infrastructure: <strong>$30bn underwritten</strong> (mandatory convertible preferred + common stock) + <strong>$40bn ATM programme</strong> (Q3 2026 start) + <strong>$10bn private placement to Berkshire Hathaway</strong> at $351.81/share (Cl. A) and $348.20/share (Cl. C). First stock issuance since 2005 — a reversal from the buyback era. Alphabet -4% on dilution concerns; the raise signals that AI capex requirements now exceed what internal cash generation can fund alone. Bloomberg / CNBC June 1.
+          <br><a class="src-link" href="https://www.cnbc.com/2026/06/01/alphabet-to-raise-80-billion-from-stock-sales-to-fund-ai-buildout.html" target="_blank">↗ CNBC · June 1</a>
+        </li>
+        <li>
+          <strong>🔥 Nvidia RTX Spark superchip — enters PC market, NVDA +6% June 1 (CNBC/Bloomberg)</strong>
+          Nvidia CEO Jensen Huang unveiled the <strong>RTX Spark</strong>, an ARM-based superchip for Windows laptops, at Computex 2026 in Taipei on June 1. The chip targets the main-processor market currently dominated by Intel, AMD and Qualcomm — a potential $200bn industry. Laptop partners: Dell, HP, Microsoft, ASUS, Lenovo, MSI. First laptops as thin as 14mm launching fall 2026. NVDA surged <strong>+6% on June 1</strong> — contributing to S&amp;P 7,599.96, Nasdaq 27,086.81 (both record closes). Software ETF best May since Oct 2001.
+          <br><a class="src-link" href="https://www.cnbc.com/2026/05/31/nvidias-new-chip-to-power-fresh-line-of-windows-laptops-by-dell-hp.html" target="_blank">↗ CNBC · May 31 / Bloomberg June 1</a>
+        </li>
+        <li>
+          <strong>🔥 BREAKING: Anthropic raises $65bn — $965bn valuation, surpasses OpenAI (May 28)</strong>
+          Anthropic announced a <strong>$65bn Series H</strong> funding round on May 28, 2026, reaching a post-money valuation of <strong>$965 billion</strong> and surpassing OpenAI ($730bn last round) to become the world's most valuable AI startup. The round was led by Altimeter Capital, Dragoneer, Greenoaks and Sequoia Capital (each contributing more than $2bn); co-led by Capital Group, Coatue, D1, GIC, ICONIQ; Micron, Samsung and SK hynix joined as strategic infrastructure partners. Anthropic's revenue run rate reached $47bn, up from $30bn earlier in 2026. Bloomberg/CNBC May 28.
+          <br><a class="src-link" href="https://www.bloomberg.com/news/articles/2026-05-28/anthropic-raises-at-965-billion-valuation-eclipsing-openai" target="_blank">↗ Bloomberg · May 28</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 4. MONTIS MARKET WATCH -->
+  <div class="card fw" id="sec-montis">
+    <div class="ch">
+      <div class="ci ci-montis">🏛️</div>
+      <div>
+        <div class="ct">Montis Market Watch <span class="tag-montis">domain news</span></div>
+        <div class="cs">News on the market Montis operates in — DLT securities · CSDs · Tokenised bonds · Wholesale CBDC · June 10, 2026 🔥</div>
+      </div>
+    </div>
+    <div id="montisContent">
+      <ul class="bl">
+        <li>
+          <strong>🔥 DTCC production July 2026 — Goldman, BlackRock, JPM go on-chain · October full launch · direct competitive signal for EU DLT</strong>
+          DTCC's tokenization platform enters <strong>limited production in July 2026</strong> with a 50-firm working group — the first time the US CSD incumbent will settle real assets on-chain (Russell 1000, ETFs, US Treasuries). For Montis: this is the most important competitive datapoint of 2026 — the US incumbent is going live, setting the benchmark for what a compliant, institutional-grade DLT CSD looks like. EU DLT infrastructure (operating under the DLT Pilot Regime) must now compete with a production US equivalent. CSSF/ESMA watch: this may accelerate the EU DLT Pilot Regime expansion timeline. CoinDesk / Bitcoin Magazine June 2026.
+          <br><a class="src-link" href="https://www.coindesk.com/business/2026/05/04/wall-street-giant-dtcc-plans-tokenized-securities-platform-with-july-pilot-october-launch" target="_blank">↗ CoinDesk · June 2026</a>
+        </li>
+        <li>
+          <strong>🔥 DLT reconciliation — PostTrade360 June 5: the underestimated structural advantage (Montis relevance)</strong>
+          <strong>Vinod Jain</strong> (PostTrade360, June 5) identifies <strong>reconciliation as DLT's "unsung power tool"</strong> — by creating a shared golden source, DLT platforms eliminate the bilateral reconciliation cost that represents billions in legacy CSD infrastructure. For Montis: the DLT structural cost argument goes beyond T+0 and programmability — it challenges the entire economics of post-trade back-office. A powerful argument for institutional sales. PostTrade360 June 5.
+          <br><a class="src-link" href="https://posttrade360.com" target="_blank">↗ PostTrade360 · June 5</a>
+        </li>
+        <li>
+          <strong>🔥 Paxos = 1st SEC-registered blockchain clearing agency — post-DTCC era (June 4)</strong>
+          The SEC registered <strong>Paxos Securities Settlement Company</strong> as a blockchain-native clearing agency and CSD — the <strong>first of its kind in the US</strong> (Section 17A, 18-month temp registration). 7 years of work. Ran a settlement pilot with large institutions. For Montis: a compliant, blockchain-native CSD competitor to DTCC now exists — validating the entire DLT post-trade infrastructure thesis and accelerating institutional adoption globally. Paxos / PostTrade360 June 4.
+          <br><a class="src-link" href="https://www.paxos.com/newsroom/sec-registers-paxos-securities-settlement-company-as-a-clearing-agency" target="_blank">↗ Paxos · June 4</a>
+        </li>
+        <li>
+          <strong>🔥 Euroclear Sweden → unified Nordic CSD · TCS BaNCS + T2S migration (June 4)</strong>
+          TCS will power <strong>Euroclear Sweden and Finland's migration</strong> to a unified "One Nordic" CSD platform (TCS BaNCS + Quartz), aligned to ECB's T2S. Two sovereign markets under one scalable, cloud-ready post-trade infrastructure — Euroclear's answer to the European CSD modernisation imperative. Direct MDSA read-across: legacy CSD consolidation accelerates demand for DLT-native alternatives that can plug into T2S and ECB Pontes. TCS / PostTrade360 June 4.
+          <br><a class="src-link" href="https://www.tcs.com/who-we-are/newsroom/press-release/tcs-expands-partnership-euroclear-modernize-sweden-central-securities-depository" target="_blank">↗ TCS / PostTrade360 · June 4</a>
+        </li>
+        <li>
+          <strong>🔥 ClearBank Europe Digital Asset Rails — EURC + SEPA Instant live · MiCA-compliant (June 2)</strong>
+          ClearBank Europe launched live <strong>Digital Asset Rails</strong> on June 2: institutions convert fiat → <strong>EURC</strong> (Circle MiCA stablecoin) → transfer cross-border → redeem fiat via <strong>SEPA Instant 24/7</strong>. First Dutch bank with MiCA notification. This is the first operational stablecoin cash-leg for EU institutional settlement — directly relevant to the MDSA vision: a programmable, regulated cash-settlement layer running alongside DLT securities platforms like Montis. USDC coming H2 2026. PostTrade360 / ClearBank June 2.
+          <br><a class="src-link" href="https://clear.bank/learn/news/clearbank-europe-launches-digital-asset-rails-to-unlock-programmable-liquidity-for-cross-border-flows" target="_blank">↗ ClearBank · June 2</a>
+        </li>
+        <li>
+          <strong>🔥 Citi "Tokenization 2030": $5.5T market by 2030 — DTCC, Nasdaq, ICE going on-chain (June 1)</strong>
+          Citi's landmark <strong>"Tokenization 2030: Wall Street On-Chain"</strong> report (CoinDesk June 1) projects tokenised securities growing from $17bn today to <strong>$5.5 trillion by 2030</strong>. Key: DTCC, Nasdaq and ICE are all building on-chain infrastructure; 10% of US Treasuries and 3% of listed equities could be tokenised by 2030. For Montis: the Citi forecast validates the institutional addressable market — every asset manager tracking this report will revisit their tokenisation roadmap.
+          <br><a class="src-link" href="https://www.coindesk.com/markets/2026/06/01/citi-predicts-the-tokenized-securities-market-will-grow-to-usd5-5-trillion-by-2030" target="_blank">↗ CoinDesk · June 1</a>
+        </li>
+        <li>
+          <strong>🔥 BIS Project Agorá — wCBDC + tokenised deposits on unified ledger (May 28)</strong>
+          The BIS and seven major central banks delivered a working prototype of Project Agorá on May 28 — combining <strong>tokenised commercial-bank deposits</strong> and <strong>wholesale CBDC reserves</strong> on a single programmable ledger with atomic, cross-border, multi-currency settlement. Participating: BoE, NY Fed, Banque de France (Eurosystem), BoJ, BoK, Banco de México, SNB. Critical MDSA read-across: this is the wholesale-CBDC cash-leg infrastructure that would underpin institutional DLT settlement platforms like Montis. Advancing to real-value testing.
+          <br><a class="src-link" href="https://posttrade360.com/news/infrastructure/bis-and-major-central-banks-deliver-unified-ledger-for-wholesale-cross-border-payments/" target="_blank">↗ PostTrade360 · May 28</a>
+        </li>
+        <li>
+          <strong>🔥 50% of asset managers have started tokenisation projects (Apex Group, May 28)</strong>
+          Apex Group survey finds <strong>50% of AMs</strong> have deployed tokenisation; <strong>45%</strong> have tokenised private-market assets; <strong>42%</strong> cite expanded investor access as #1 driver. Only <strong>7%</strong> feel fully confident in technical capability. The demand side is ready — infrastructure and expertise remain the bottleneck. Direct read-across for the Montis platform proposition: institutional demand is real, supply-side infrastructure is scarce.
+          <br><a class="src-link" href="https://posttrade360.com/news/infrastructure/survey-half-of-asset-managers-have-started-tokenisation-projects/" target="_blank">↗ PostTrade360 · May 28</a>
+        </li>
+        <li>
+          <strong>🔥 DTCC + Stellar: multi-chain tokenisation covering Treasuries, ETFs &amp; equities (May 27)</strong>
+          DTCC announced it will connect its tokenisation service to the <strong>Stellar blockchain</strong> (multi-chain strategy: multiple L1/L2s). Eligible assets: Russell 1000 equities, ETFs, US Treasuries. Full lifecycle support; same investor protections as conventional securities. H1 2027 launch target (following SEC Dec 2025 no-action letter). The US CSD incumbent is on-chain — pressure point for European DLT infrastructure players to accelerate.
+          <br><a class="src-link" href="https://posttrade360.com/news/infrastructure/dtcc-to-connect-tokenisation-service-with-stellar-blockchain/" target="_blank">↗ PostTrade360 · May 27</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 5. BONDS EUROPE -->
+  <div class="card fw" id="sec-bonds">
+    <div class="ch">
+      <div class="ci ci-bonds">📜</div>
+      <div>
+        <div class="ct">European Bonds — Gov &amp; Corporate</div>
+        <div class="cs">Sovereigns · Spreads · Primary pipeline · Auctions · May 29, 2026</div>
+      </div>
+    </div>
+    <div id="bondsContent">
+      <table class="btable">
+        <thead>
+          <tr><th>10Y Sovereign</th><th>Yield</th><th>As of</th><th>Source</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="b-flag">🇩🇪 Germany (Bund)</td><td class="b-yield">~3.0%</td><td>Jun 8</td><td><a class="b-src" href="https://tradingeconomics.com/germany/government-bond-yield" target="_blank">↗ Trading Economics</a></td></tr>
+          <tr><td class="b-flag">🇬🇧 UK (Gilt)</td><td class="b-yield">4.86%</td><td>May 26</td><td><a class="b-src" href="https://tradingeconomics.com/united-kingdom/government-bond-yield" target="_blank">↗ Trading Economics</a></td></tr>
+          <tr><td class="b-flag">🇪🇺 Euro Area (10Y avg)</td><td class="b-yield">3.41%</td><td>May 22</td><td><a class="b-src" href="https://tradingeconomics.com/euro-area/government-bond-yield" target="_blank">↗ Trading Economics</a></td></tr>
+          <tr><td class="b-flag">🇫🇷 France (OAT)</td><td class="b-yield">see source</td><td>—</td><td><a class="b-src" href="https://tradingeconomics.com/france/government-bond-yield" target="_blank">↗ Trading Economics</a></td></tr>
+          <tr><td class="b-flag">🇮🇹 Italy (BTP)</td><td class="b-yield">see source</td><td>—</td><td><a class="b-src" href="https://tradingeconomics.com/italy/government-bond-yield" target="_blank">↗ Trading Economics</a></td></tr>
+          <tr><td class="b-flag">🇱🇺 Luxembourg</td><td class="b-yield">see source</td><td>—</td><td><a class="b-src" href="https://tradingeconomics.com/luxembourg/long-term-gov-bond-yields-eurostat-data.html" target="_blank">↗ Eurostat</a></td></tr>
+        </tbody>
+      </table>
+      <ul class="bl" style="margin-top:10px">
+        <li>
+          <strong>🆕 UK Gilt 10Y eases to 4.86% — sharpest weekly decline since 2024 (May 26)</strong>
+          UK 10-year gilt yields dropped below 4.9% on May 26 to their lowest level since April 21, after the sharpest weekly decline since 2024, as investors cheered progress in US-Iran negotiations and trimmed Bank of England rate-hike expectations amid weak economic data. Gilts eased c. 30bp in Friday's relief rally.
+          <br><a class="src-link" href="https://www.cnbc.com/2026/05/26/uk-gilt-yields-ease-political-drama-mellows-rate-hikes-ease.html" target="_blank">↗ CNBC · May 26</a>
+        </li>
+        <li>
+          <strong>🆕 Bund 10Y climbs above 3% intraday (June 3) — ECB hike June 11 · EZ CPI 3.2%</strong>
+          The German 10-year Bund yield climbed <strong>above 3%</strong> intraday on June 3 before pulling back to approximately <strong>2.95%</strong>, driven by eurozone CPI rising to 3.2% in May (highest since September 2023) and Iran escalation boosting energy inflation fears. The ECB <strong>June 11 meeting</strong> is now priced at <strong>97% probability</strong> of a +25bp hike (2.00%→2.25%) — with two total hikes expected in 2026. Key watch: ECB staff projections on June 11 will anchor the Bund range for Q3.
+          <br><a class="src-link" href="https://tradingeconomics.com/germany/government-bond-yield" target="_blank">↗ Trading Economics</a>
+        </li>
+        <li>
+          <strong>🆕 Core PCE April 3.3% YoY — in-line; 0.2% MoM below 0.3% est. (May 29)</strong>
+          The Fed's preferred inflation gauge came in at <strong>3.3% YoY for April</strong> (in line with consensus) and just <strong>0.2% month-on-month</strong> (slightly below the 0.3% estimate) — a mild relief signal that the March burst may have peaked. CNBC May 28. <strong>ECB held rates at 2.00%</strong> at the Apr 30 meeting (deposit facility 2.00%, MRO 2.15%, marginal lending 2.40%); euro-area inflation 2.6% forecast for 2026. Economists now watch the June ECB meeting for a potential 25bp hike to 2.25%.
+          <br><a class="src-link" href="https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp260430~81b7179e6f.en.html" target="_blank">↗ ECB · Apr 30</a>
+        </li>
+        <li>
+          <strong>European bonds 2026 outlook (Morningstar)</strong>
+          Morningstar's 2026 European bonds outlook remains a useful framing reference given this week's Bund/Gilt repricing. For real-time European sovereign yields (OAT, BTP, Luxembourg, Netherlands) and the primary IG/HY pipeline, check the linked sources directly — figures change intraday.
+          <br><a class="src-link" href="https://global.morningstar.com/en-eu/bonds/whats-outlook-european-bonds-2026" target="_blank">↗ Morningstar</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 6. FUTURE INSTRUMENTS / WARRANTS -->
+  <div class="card fw" id="sec-warrants">
+    <div class="ch">
+      <div class="ci ci-war">🎫</div>
+      <div>
+        <div class="ct">Future Instruments — Warrants &amp; Structured Products</div>
+        <div class="cs">Euronext · Xetra · SIX · Volumes · Issuers · Trends · May 29, 2026</div>
+      </div>
+    </div>
+    <div id="warrantsContent">
+      <ul class="bl">
+        <li>
+          <strong>Euronext monthly volumes — April 2026 release (May 8)</strong>
+          Euronext released its April 2026 monthly trading statistics on May 8 — the full warrants and structured-products breakdown is on the investor-relations page. May data scheduled for early June. Useful primary source for issuer market-share, average notional and underlying mix.
+          <br><a class="src-link" href="https://www.euronext.com/en/investor-relations/financial-information/news/euronext-announces-volumes-for-april-2026" target="_blank">↗ Euronext IR</a>
+        </li>
+        <li>
+          <strong>Euronext Warrants &amp; Certificates platform — central order book + RFQ</strong>
+          The Euronext Warrants &amp; Certificates trading platform combines central order book trading with Request-For-Quote — a hybrid model designed for investor protection, market quality and execution efficiency. Public reference page links to product specifications and live order-book activity.
+          <br><a class="src-link" href="https://live.euronext.com/en/products/warrants" target="_blank">↗ Euronext Warrants</a>
+        </li>
+        <li>
+          <strong>Tokenisation of structured products — institutional reference reading</strong>
+          For the broader institutional framing on how tokenisation reaches structured products and warrants after sovereign and IG bonds, see the May 8 industry brief "Perspectives on Tokenization and Implications for the Financial System". No specific tokenised warrant issuance has been confirmed for May 28, 2026; SocGen FORGE remains the most active EU institutional issuer.
+          <br><a class="src-link" href="https://insurancenewsnet.com/oarticle/may-08-2026-perspectives-on-tokenization-and-implications-for-the-financial-system" target="_blank">↗ InsuranceNewsNet · May 8</a>
+        </li>
+        <li>
+          <strong>Reference primary sources — ICMA fintech tracker</strong>
+          The ICMA "Tracker of New FinTech Applications in Bond Markets" is the most-up-to-date public register of new fintech and DLT applications in international bond markets (and the closest adjacent reference for the warrants / structured-products tokenisation pipeline). Update cadence: continuous.
+          <br><a class="src-link" href="https://www.icmagroup.org/fintech-and-digitalisation/fintech-resources/tracker-of-new-fintech-applications-in-bond-markets/" target="_blank">↗ ICMA</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 7. MARKETS -->
+  <div class="card fw" id="sec-markets">
+    <div class="ch">
+      <div class="ci ci-mkts">📈</div>
+      <div>
+        <div class="ct">Markets <span class="est">Sun Jun 14 · Jun 13 close · sourced</span></div>
+        <div class="cs">US · Europe · Asia · VIX · Fear &amp; Greed</div>
+      </div>
+    </div>
+    <div id="mktContent">
+      <div class="mbar">
+        <div class="mitem"><div class="mn">Dow Jones</div><div class="mv">51,202</div><div class="mc up">▲ +0.70% <span style="font-size:9px;font-weight:600;color:#888">Jun 13 · +354pts · SpaceX + Iran peace</span></div></div>
+        <div class="mitem"><div class="mn">S&amp;P 500</div><div class="mv">~7,468</div><div class="mc up">▲ +0.50% <span style="font-size:9px;font-weight:600;color:#888">Jun 13 · SpaceX debut boost</span></div></div>
+        <div class="mitem"><div class="mn">NASDAQ</div><div class="mv">see source</div><div class="mc up">▲ +0.30% <span style="font-size:9px;font-weight:600;color:#888">Jun 13 · SPCX on Nasdaq</span></div></div>
+        <div class="mitem"><div class="mn">UST 10Y</div><div class="mv">~4.5%</div><div class="mc neu">● Jun 13 · Iran easing offsets CPI</div></div>
+        <div class="mitem"><div class="mn">Bund 10Y</div><div class="mv">~3.0%</div><div class="mc up">▲ ECB +25bp delivered Jun 11 → 2.25%</div></div>
+        <div class="mitem"><div class="mn">Brent</div><div class="mv">~$86.5</div><div class="mc dn">▼ -4%+ Jun 13 · Iran deal 80% likely</div></div>
+        <div class="mitem vix-item"><div class="mn">VIX</div><div class="mv">see source</div><div class="mc neu">● Easing · Iran deal + markets recovery</div></div>
+        <div class="mitem fg-item"><div class="mn">Fear &amp; Greed</div><div class="mv up">↑</div><div class="mc up">● Improving · SpaceX + Iran peace</div><div style="font-size:9px;color:#bbb;margin-top:2px">CNN — Jun 13</div></div>
+      </div>
+      <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;">
+        <a class="src-link" href="https://finance.yahoo.com/quote/%5EGSPC" target="_blank">↗ S&amp;P 500</a>
+        <a class="src-link" href="https://finance.yahoo.com/quote/%5EIXIC" target="_blank">↗ NASDAQ</a>
+        <a class="src-link" href="https://finance.yahoo.com/quote/%5EFCHI" target="_blank">↗ CAC 40</a>
+        <a class="src-link" href="https://finance.yahoo.com/quote/%5EGDAXI" target="_blank">↗ DAX</a>
+        <a class="src-link" href="https://finance.yahoo.com/quote/%5EN225" target="_blank">↗ Nikkei</a>
+        <a class="src-link" href="https://finance.yahoo.com/quote/%5EVIX" target="_blank">↗ VIX</a>
+        <a class="src-link" href="https://edition.cnn.com/markets/fear-and-greed" target="_blank">↗ Fear &amp; Greed</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8. LIVE CRYPTO (REDUCED TO TOP 4) -->
+  <div class="card fw" id="sec-crypto">
+    <div class="ch">
+      <div class="ci ci-fin">💰</div>
+      <div>
+        <div class="ct">Crypto Prices <span class="live"><span class="ldot"></span>LIVE</span></div>
+        <div class="cs">Top 4 · CoinGecko API (live) overrides static values · updated <span id="ctime">—</span></div>
+      </div>
+    </div>
+    <div class="cgrid" id="cryptoGrid">
+      <div class="citem"><div class="csym">BTC</div><div class="cpx">~$63,020</div><div class="cchg up">▲ Jun 11 · lifting off lows</div><div class="cmeta">Opened $61,456 Jun 11 · rose to $63,020 · Iran peace + SpaceX tailwind · weekend</div><div class="csrc"><a href="https://finance.yahoo.com/quote/BTC-USD/history/" target="_blank">↗ Yahoo Finance · June 11</a></div></div>
+      <div class="citem"><div class="csym">ETH</div><div class="cpx">~$1,660</div><div class="cchg up">▲ Jun 11 · recovery from lows</div><div class="cmeta">Opened $1,620.37 Jun 11 · rose to $1,660 · recovery phase · weekend</div><div class="csrc"><a href="https://finance.yahoo.com/quote/ETH-USD/history/" target="_blank">↗ Yahoo Finance · June 11</a></div></div>
+      <div class="citem"><div class="csym">SOL</div><div class="cpx">see source</div><div class="cchg neu">● live</div><div class="cmeta">Auto-refresh below from CoinGecko</div><div class="csrc"><a href="https://crypto.com/price/solana" target="_blank">↗ crypto.com</a></div></div>
+      <div class="citem"><div class="csym">XRP</div><div class="cpx">see source</div><div class="cchg neu">● live</div><div class="cmeta">Auto-refresh below from CoinGecko</div><div class="csrc"><a href="https://crypto.com/price/xrp" target="_blank">↗ crypto.com</a></div></div>
+    </div>
+    <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;">
+      <a class="src-link" href="https://crypto.com/exchange" target="_blank">↗ Crypto.com Exchange</a>
+      <a class="src-link" href="https://coinmarketcap.com" target="_blank">↗ CoinMarketCap</a>
+    </div>
+  </div>
+
+  <!-- 9. POLYMARKET SIGNALS -->
+  <div class="card" id="sec-poly">
+    <div class="ch">
+      <div class="ci ci-poly">📊</div>
+      <div>
+        <div class="ct">Polymarket Signals</div>
+        <div class="cs">Live prediction market odds · June 14, 2026</div>
+      </div>
+    </div>
+    <div id="polyContent">
+      <div class="pgrid">
+        <a class="pi" href="https://polymarket.com" target="_blank">
+          <div class="pl">ECB hike +25bp on June 11?</div><div class="po">99%</div><div class="pc neu">● live</div><div class="pi-src">↗ polymarket.com / ECB Watch</div>
+        </a>
+        <a class="pi" href="https://polymarket.com" target="_blank">
+          <div class="pl">US-Iran permanent peace deal by Dec 31?</div><div class="po">74%</div><div class="pc neu">● live</div><div class="pi-src">↗ polymarket.com</div>
+        </a>
+        <a class="pi" href="https://polymarket.com" target="_blank">
+          <div class="pl">US-Iran nuclear deal before 2027?</div><div class="po">79%</div><div class="pc neu">● live</div><div class="pi-src">↗ polymarket.com</div>
+        </a>
+        <a class="pi" href="https://polymarket.com" target="_blank">
+          <div class="pl">Israel-Iran peace deal by June 30?</div><div class="po">17%</div><div class="pc neu">● live</div><div class="pi-src">↗ polymarket.com</div>
+        </a>
+        <a class="pi" href="https://polymarket.com" target="_blank">
+          <div class="pl">Iran ceasefire continues through…?</div><div class="po">see source</div><div class="pc neu">● live</div><div class="pi-src">↗ polymarket.com</div>
+        </a>
+        <a class="pi" href="https://polymarket.com" target="_blank">
+          <div class="pl">US-Iran diplomatic meeting by…?</div><div class="po">see source</div><div class="pc neu">● live</div><div class="pi-src">↗ polymarket.com</div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 10. WORLD NEWS -->
+  <div class="card" id="sec-geo">
+    <div class="ch">
+      <div class="ci ci-geo">🌍</div>
+      <div>
+        <div class="ct">World Monitor — Geopolitics</div>
+        <div class="cs">Conflicts · Sanctions · Macro · Elections · June 14, 2026</div>
+      </div>
+    </div>
+    <div id="geoContent">
+      <div class="wgrid">
+        <div class="wi">
+          <div class="wi-tag tag-econ">🚀 SpaceX · Historic IPO</div>
+          <div class="wi-title">🆕 SPCX +19% → $161 · $75B largest IPO ever · Musk first trillionaire</div>
+          <div class="wi-body">SpaceX priced at $135 on June 12, opened at $150 on Nasdaq, and closed at <strong>$161.11 (+19%)</strong> — the <strong>largest IPO in history</strong> at $75B raised with a $1.75T initial valuation. Elon Musk became the <strong>world's first trillionaire</strong>. SpaceX president Gwynne Shotwell hinted at a potential future Tesla merger post-IPO. CNBC / Fortune June 12–13.</div>
+          <a class="wi-src" href="https://www.cnbc.com/2026/06/12/spacex-ipo-spcx-live-updates.html" target="_blank">↗ CNBC · June 12</a>
+        </div>
+        <div class="wi">
+          <div class="wi-tag tag-energy">🕊️ Iran · Peace 80%</div>
+          <div class="wi-title">🆕 Iran deal 80% prob — Brent -4% → $86.5 · Hormuz reopening in play</div>
+          <div class="wi-body">A Trump administration official said there is an <strong>80% chance</strong> of a deal — involving Hormuz reopening, naval blockade removal, Iran nuclear dismantlement and economic incentives. Pakistan PM confirmed a final text had been reached; Iran FM said "closer than ever but cautious." Brent fell <strong>>4% to below $86.5</strong> on June 13. Iranian media published a conflicting draft requiring US force withdrawals — final text disputed. CNBC / Trading Economics June 13.</div>
+          <a class="wi-src" href="https://tradingeconomics.com/commodity/brent-crude-oil" target="_blank">↗ Trading Economics · June 13</a>
+        </div>
+        <div class="wi">
+          <div class="wi-tag tag-econ">⚡ ECB · Hike Delivered</div>
+          <div class="wi-title">🆕 ECB +25bp → 2.25% · Jun 11 · inflation 3.0% 2026 · Sep 2nd hike 60%</div>
+          <div class="wi-body">ECB raised rates +25bp to <strong>2.25%</strong> on June 11 — first hike since 2023. Lagarde press conference confirmed inflation revised to <strong>3.0% for 2026</strong> (from 2.6%), GDP cut to 0.6%. Iran war generating persistent inflation pressure via energy. Markets price a second +25bp hike September with >60% probability. Bund 10Y stable ~3.0%. ECB June 11.</div>
+          <a class="wi-src" href="https://www.ecb.europa.eu/press/press_conference/monetary-policy-statement/2026/html/ecb.is260611~372040d313.en.html" target="_blank">↗ ECB · June 11</a>
+        </div>
+        <div class="wi">
+          <div class="wi-tag tag-econ">⛓️ DTCC · July On-Chain</div>
+          <div class="wi-title">🆕 DTCC Jul pilot — 50+ firms · BlackRock · Goldman · JPM · Oct full launch</div>
+          <div class="wi-body">DTCC confirmed: <strong>limited production trades July 2026</strong>, full-service launch <strong>October 2026</strong>. The 50-firm Industry Working Group includes Goldman Sachs, J.P. Morgan, BlackRock, Circle, Ondo Finance, and Ripple Prime. Assets: Russell 1000 equities, major ETFs, US Treasuries. DTC Participants can optionally select tokenized record-keeping as standard service. The US CSD incumbent is formally going on-chain — key read-across for Montis and European DLT infrastructure. CoinDesk / Bitcoin Magazine June 2026.</div>
+          <a class="wi-src" href="https://www.coindesk.com/business/2026/05/04/wall-street-giant-dtcc-plans-tokenized-securities-platform-with-july-pilot-october-launch" target="_blank">↗ CoinDesk · June 2026</a>
+        </div>
+        <div class="wi">
+          <div class="wi-tag tag-econ">📈 Markets · Jun 13 Rally</div>
+          <div class="wi-title">🆕 Dow +354pts → 51,202 · S&amp;P +0.5% · Nasdaq +0.3% · recovery continues</div>
+          <div class="wi-body">US markets rose on Friday June 13 on dual tailwinds: SpaceX's historic IPO debut boosting sentiment, and growing Iran peace deal optimism cutting oil prices. <strong>Dow +0.70% (+354pts → 51,202)</strong>, S&amp;P 500 <strong>+0.5% (~7,468)</strong>, Nasdaq <strong>+0.3%</strong>. Strong recovery from the June 10 crash (Dow -953pts). Brent fell >4% to ~$86.5. Yahoo Finance / CNBC June 13.</div>
+          <a class="wi-src" href="https://finance.yahoo.com/quote/%5EGSPC/history/" target="_blank">↗ Yahoo Finance · June 13</a>
+        </div>
+        <div class="wi">
+          <div class="wi-tag tag-econ">🤖 AI · Colorado Act Jun 30</div>
+          <div class="wi-title">🆕 Colorado Consumer AI Act — takes effect June 30 · financial services scope</div>
+          <div class="wi-body">Colorado's <strong>Consumer Protections for Artificial Intelligence Act</strong> takes effect <strong>June 30, 2026</strong> — applies to deployers and developers of high-risk AI systems in employment decisions, healthcare, <strong>financial services</strong>, educational access, housing and legal services. Requirements: risk management programs, annual impact assessments, and disclosure obligations. First US state-level AI framework to materially affect financial services AI deployment. BuildFastWithAI June 2026.</div>
+          <a class="wi-src" href="https://www.buildfastwithai.com/blogs/ai-news-today-june-8-2026" target="_blank">↗ BuildFastWithAI · June 2026</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function fp(n){const v=parseFloat(n);if(isNaN(v))return'—';if(v>=10000)return'$'+v.toLocaleString('en-US',{maximumFractionDigits:0});if(v>=100)return'$'+v.toLocaleString('en-US',{maximumFractionDigits:2});if(v>=1)return'$'+v.toLocaleString('en-US',{maximumFractionDigits:4});return'$'+v.toFixed(6)}
+function fpct(c){const raw=parseFloat(c);if(isNaN(raw))return'—';const pct=Math.abs(raw)<2?raw*100:raw;return(pct>=0?'+':'')+pct.toFixed(2)+'%'}
+function fvol(v){const n=parseFloat(v);if(isNaN(n))return'—';return n>=1e9?'$'+(n/1e9).toFixed(2)+'B':n>=1e6?'$'+(n/1e6).toFixed(1)+'M':n>=1e3?'$'+(n/1e3).toFixed(0)+'K':'$'+n.toFixed(0)}
+function nowStr(){return new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'})}
+function todayStr(){return new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'})}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function pj(raw){if(!raw)return null;const t=typeof raw==='string'?raw:JSON.stringify(raw);const aS=t.indexOf('['),aE=t.lastIndexOf(']');if(aS!==-1&&aE>aS){try{return JSON.parse(t.slice(aS,aE+1))}catch{}}const oS=t.indexOf('{'),oE=t.lastIndexOf('}');if(oS!==-1&&oE>oS){try{return JSON.parse(t.slice(oS,oE+1))}catch{}}return null}
+function sk(n,c=''){return Array(n).fill(`<div class="sk ${c}"></div>`).join('')}
+const PAIRS=[{id:'bitcoin',sym:'BTC',url:'https://crypto.com/price/bitcoin'},{id:'ethereum',sym:'ETH',url:'https://crypto.com/price/ethereum'},{id:'solana',sym:'SOL',url:'https://crypto.com/price/solana'},{id:'ripple',sym:'XRP',url:'https://crypto.com/price/xrp'}];
+async function loadCrypto(initial){const el=document.getElementById('cryptoGrid');if(initial)el.innerHTML=sk(4,'h3');try{const ids=PAIRS.map(p=>p.id).join(',');const resp=await fetch(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${ids}&price_change_percentage=24h`,{cache:'no-store'});if(!resp.ok)throw new Error('HTTP '+resp.status);const data=await resp.json();const byId=Object.fromEntries(data.map(d=>[d.id,d]));el.innerHTML=PAIRS.map(p=>{const r=byId[p.id];if(!r)return`<div class="citem"><div class="csym">${p.sym}</div><div class="cpx dn">—</div><div class="cmeta">no data</div></div>`;const price=r.current_price;const chg=r.price_change_percentage_24h||0;const hi=r.high_24h;const lo=r.low_24h;const vol=r.total_volume;const up=chg>=0;const bg=up?'style="background:#f0fdf4"':'style="background:#fef2f2"';return`<div class="citem" ${bg}><div class="csym">${p.sym}</div><div class="cpx">${fp(price)}</div><div class="cchg ${up?'up':'dn'}">${up?'▲':'▼'} ${fpct(chg)}</div><div class="cmeta">H ${fp(hi)} · L ${fp(lo)} · Vol ${fvol(vol)}</div><div class="csrc"><a href="${p.url}" target="_blank">↗ crypto.com</a></div></div>`}).join('');document.getElementById('ctime').textContent=nowStr()}catch(e){if(initial)el.innerHTML=`<div class="err" style="grid-column:1/-1">Error: ${esc(String(e?.message||e))}</div>`}}
+async function fetchNL(){try{const r=await window.cowork.callMcpTool('mcp__d86aec37-b114-4b4c-b25b-1526589cd0bc__search_threads',{query:'newer_than:3d -in:sent -in:draft -in:trash',pageSize:8});const threads=(r&&r.threads)||[];if(!threads.length)return[];const KW=['bond','dlt','tokeni','blockchain','crypto','finance','digest','briefing','market','bond','warrant','clearstream','dtcc','ecb','fed','imf','euronext'];const pool=threads.filter(t=>{const s=((t.messages[0]?.sender||'')+(t.messages[0]?.subject||'')+(t.messages[0]?.snippet||'')).toLowerCase();return KW.some(k=>s.includes(k))}).slice(0,4);const use=pool.length?pool:threads.slice(0,3);const full=await Promise.all(use.map(t=>window.cowork.callMcpTool('mcp__d86aec37-b114-4b4c-b25b-1526589cd0bc__get_thread',{threadId:t.id,messageFormat:'FULL_CONTENT'}).catch(()=>null)));return full.filter(Boolean).map((th,i)=>{const m=th.messages?.[0]||{};return{sender:m.sender||use[i].messages[0]?.sender||'',subject:m.subject||use[i].messages[0]?.subject||'',body:(m.plaintextBody||'').slice(0,3500)}}).filter(n=>n.body.length>50)}catch{return[]}}
+async function renderMarkets(nls){const ctx=nls.map(n=>n.subject+': '+n.body.slice(0,300)).join('\n');try{const res=await window.cowork.askClaude(`Today is ${todayStr()}. Give current approximate values for major financial indices.\nContext: ${ctx||'Use your knowledge'}\nReturn ONLY valid JSON:\n[{"name":"S&P 500","value":"XXXX","change":"+X.XX%","up":true},{"name":"NASDAQ","value":"XXXXX","change":"...","up":true},{"name":"DOW","value":"XXXXX","change":"...","up":true},{"name":"CAC 40","value":"XXXX","change":"...","up":true},{"name":"DAX","value":"XXXXX","change":"...","up":true},{"name":"FTSE 100","value":"XXXXX","change":"...","up":true},{"name":"Nikkei 225","value":"XXXXX","change":"...","up":true},{"name":"VIX","value":"XX.XX","change":"...","up":false},{"name":"Fear & Greed","value":"XX","change":"Neutral","up":null}]`,[]);const items=pj(res);if(!Array.isArray(items)||!items.length)return;const mktSrcLinks=`<div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;"><a class="src-link" href="https://finance.yahoo.com/quote/%5EGSPC" target="_blank">↗ S&amp;P 500</a><a class="src-link" href="https://finance.yahoo.com/quote/%5EIXIC" target="_blank">↗ NASDAQ</a><a class="src-link" href="https://finance.yahoo.com/quote/%5EFCHI" target="_blank">↗ CAC 40</a><a class="src-link" href="https://finance.yahoo.com/quote/%5EGDAXI" target="_blank">↗ DAX</a><a class="src-link" href="https://finance.yahoo.com/quote/%5EN225" target="_blank">↗ Nikkei</a><a class="src-link" href="https://finance.yahoo.com/quote/%5EVIX" target="_blank">↗ VIX</a><a class="src-link" href="https://edition.cnn.com/markets/fear-and-greed" target="_blank">↗ Fear &amp; Greed</a></div>`;const el=document.getElementById('mktContent');el.innerHTML=`<div class="mbar">${items.map(m=>{const fg=m.name==='Fear & Greed';const vix=m.name==='VIX';const bg=fg?'fg-item':vix?'vix-item':'';const cls=m.up===true?'up':m.up===false?'dn':'neu';return`<div class="mitem ${bg}"><div class="mn">${esc(m.name)}</div><div class="mv ${fg?cls:''}">${esc(String(m.value))}</div><div class="mc ${cls}">${esc(String(m.change))}</div></div>`}).join('')}</div>${mktSrcLinks}`}catch{}}
+async function renderPoly(nls){const polyNL=nls.find(n=>(n.sender+n.subject).toLowerCase().includes('polymarket'));const ctx=polyNL?polyNL.body:`Today: ${todayStr()}. Use knowledge of current prediction markets.`;try{const res=await window.cowork.askClaude(`${ctx}\nExtract 6 key prediction market signals.\nReturn ONLY valid JSON: [{"label":"<question max 10 words>","odds":"<XX%>","change":"<+/-XX% or New>","up":<true|false|null>,"slug":"<url-slug-guess>"}]`,[]);const sigs=pj(res);if(!Array.isArray(sigs)||!sigs.length)return;document.getElementById('polyContent').innerHTML=`<div class="pgrid">${sigs.slice(0,6).map(s=>{const slug=s.slug||s.label.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');return`<a class="pi" href="https://polymarket.com/event/${esc(slug)}" target="_blank"><div class="pl">${esc(s.label||'')}</div><div class="po">${esc(String(s.odds||'—'))}</div>${s.change?`<div class="pc ${s.up===true?'up':s.up===false?'dn':'new'}">${esc(String(s.change))}</div>`:''}<div class="pi-src">↗ polymarket.com</div></a>`}).join('')}</div>`}catch{}}
+async function renderAI(nls){const ctx=nls.map(n=>`[${n.sender}] ${n.subject}:\n${n.body.slice(0,600)}`).join('\n\n---\n\n');try{const res=await window.cowork.askClaude(`Today: ${todayStr()}.\n${ctx?'Newsletters:\n'+ctx:''}\nExtract 5 AI & Tech insights for a finance student focused on capital markets.\nReturn ONLY valid JSON: [{"title":"<max 8 words>","detail":"<1-2 sentences>","source_name":"<publication>","source_url":"<url>"}]`,[]);const items=pj(res);if(!Array.isArray(items)||!items.length)return;document.getElementById('aiContent').innerHTML=`<ul class="bl">${items.map(it=>`<li><strong>${esc(it.title||'')}</strong>${esc(it.detail||'')}${it.source_url?`<br><a class="src-link" href="${esc(it.source_url)}" target="_blank">↗ ${esc(it.source_name||'Source')}</a>`:''}</li>`).join('')}</ul>`}catch{}}
+async function renderBC(nls){const ctx=nls.map(n=>`[${n.sender}] ${n.subject}:\n${n.body.slice(0,600)}`).join('\n\n---\n\n');try{const res=await window.cowork.askClaude(`Today: ${todayStr()}.\n${ctx?'Context:\n'+ctx:''}\nGive 6 Blockchain/DLT/tokenisation/CBDC/stablecoin updates for an MDSA-focused brief. Prioritise institutional moves (DTCC, ECB, Fed, EIB, Clearstream, SocGen FORGE, CSDs, wholesale CBDC) over retail crypto.\nReturn ONLY valid JSON: [{"title":"<max 10 words>","detail":"<2 sentences>","source_name":"<publication>","source_url":"<url>"}]`,[]);const items=pj(res);if(!Array.isArray(items)||!items.length)return;document.getElementById('blockchainContent').innerHTML=`<ul class="bl">${items.map(it=>`<li><strong>${esc(it.title||'')}</strong>${esc(it.detail||'')}${it.source_url?`<br><a class="src-link" href="${esc(it.source_url)}" target="_blank">↗ ${esc(it.source_name||'Source')}</a>`:''}</li>`).join('')}</ul>`}catch{}}
+async function renderMontis(nls){try{const res=await window.cowork.askClaude(`Today: ${todayStr()}.\nContext: Montis Group is a Luxembourg/London regulated DLT market infrastructure for tokenised securities. This section is NOT about Montis itself — it is a market-watch on the broader institutional ecosystem Montis operates in. Cover news from the same domain: CSDs/ICSDs moving into tokenisation (DTCC, Clearstream D7, Euroclear), native digital bond benchmark issuances (EIB, KfW, SocGen FORGE, World Bank, EBRD), EU/UK regulatory framework (DLT Pilot Regime, MiCA, Eurosystem DLT collateral, CSSF, FCA), wholesale CBDC pilots (ECB DL3S, Banque de France, BoE), institutional DLT infrastructure (HQLAX, FundsDLT, Onyx by JPMorgan, BNY Mellon, Fnality, Partior).\nGive 5 domain updates relevant to the Montis market.\nReturn ONLY valid JSON: [{"title":"<max 10 words>","detail":"<2 sentences, no mention of Montis itself>","source_name":"<publication>","source_url":"<url>"}]`,[]);const items=pj(res);if(!Array.isArray(items)||!items.length)return;document.getElementById('montisContent').innerHTML=`<ul class="bl">${items.map(it=>`<li><strong>${esc(it.title||'')}</strong>${esc(it.detail||'')}${it.source_url?`<br><a class="src-link" href="${esc(it.source_url)}" target="_blank">↗ ${esc(it.source_name||'Source')}</a>`:''}</li>`).join('')}</ul>`}catch{}}
+async function renderBonds(){try{const res=await window.cowork.askClaude(`Today: ${todayStr()}.\nGive a European bonds dashboard for a finance student.\nReturn ONLY valid JSON: {"sovereigns":[{"flag":"🇩🇪","name":"Germany (Bund)","yield":"X.XX%","d1":"+Xbp","d1up":true,"d1w":"+Xbp","d1wup":true,"spread":"—"},{"flag":"🇬🇧","name":"UK (Gilt)","yield":"X.XX%","d1":"+Xbp","d1up":true,"d1w":"+Xbp","d1wup":true,"spread":"+XXXbp"},{"flag":"🇫🇷","name":"France (OAT)","yield":"...","d1":"...","d1up":true,"d1w":"...","d1wup":true,"spread":"..."},{"flag":"🇮🇹","name":"Italy (BTP)","yield":"...","d1":"...","d1up":true,"d1w":"...","d1wup":true,"spread":"..."},{"flag":"🇱🇺","name":"Luxembourg","yield":"...","d1":"...","d1up":true,"d1w":"...","d1wup":true,"spread":"..."},{"flag":"🇳🇱","name":"Netherlands","yield":"...","d1":"...","d1up":true,"d1w":"...","d1wup":true,"spread":"..."}],"notes":[{"title":"<10 words>","detail":"<2 sentences on European primary IG corporate pipeline, named issuers if possible>","source_name":"...","source_url":"..."},{"title":"<10 words>","detail":"<sovereign auctions this week — UK DMO, AFT, BTP, DBA Luxembourg>","source_name":"...","source_url":"..."},{"title":"<10 words>","detail":"<tokenised bond issuance momentum — EIB, KfW, SocGen FORGE>","source_name":"...","source_url":"..."},{"title":"<10 words>","detail":"<credit conditions: iTraxx Main, iTraxx Crossover, IG vs HY>","source_name":"...","source_url":"..."}]}`,[]);const d=pj(res);if(!d||!Array.isArray(d.sovereigns))return;const rows=d.sovereigns.map(s=>`<tr><td class="b-flag">${esc(s.flag||'')} ${esc(s.name||'')}</td><td class="b-yield">${esc(s.yield||'—')}</td><td class="b-chg ${s.d1up?'up':'dn'}">${s.d1up?'▲':'▼'} ${esc(s.d1||'')}</td><td class="b-chg ${s.d1wup?'up':'dn'}">${s.d1wup?'▲':'▼'} ${esc(s.d1w||'')}</td><td>${esc(s.spread||'—')}</td></tr>`).join('');const notes=(d.notes||[]).map(n=>`<li><strong>${esc(n.title||'')}</strong>${esc(n.detail||'')}${n.source_url?`<br><a class="src-link" href="${esc(n.source_url)}" target="_blank">↗ ${esc(n.source_name||'Source')}</a>`:''}</li>`).join('');document.getElementById('bondsContent').innerHTML=`<table class="btable"><thead><tr><th>10Y Sovereign</th><th>Yield</th><th>Δ 1D</th><th>Δ 1W</th><th>Spread vs Bund</th></tr></thead><tbody>${rows}</tbody></table><ul class="bl" style="margin-top:10px">${notes}</ul>`}catch{}}
+async function renderWarrants(){try{const res=await window.cowork.askClaude(`Today: ${todayStr()}.\nGive 5 updates on the European warrants & structured products market (Euronext, Xetra, SIX) for a finance student. Cover: volumes, top issuers (BNP Paribas, SocGen, Vontobel...), trending underlyings (AI single-stocks, gold, oil, indices), structured products pipeline, tokenised structured products signals.\nReturn ONLY valid JSON: [{"title":"<max 10 words>","detail":"<2 sentences with concrete numbers if possible>","source_name":"<publication>","source_url":"<url>"}]`,[]);const items=pj(res);if(!Array.isArray(items)||!items.length)return;document.getElementById('warrantsContent').innerHTML=`<ul class="bl">${items.map(it=>`<li><strong>${esc(it.title||'')}</strong>${esc(it.detail||'')}${it.source_url?`<br><a class="src-link" href="${esc(it.source_url)}" target="_blank">↗ ${esc(it.source_name||'Source')}</a>`:''}</li>`).join('')}</ul>`}catch{}}
+async function renderGeo(nls){const ctx=nls.map(n=>`[${n.sender}] ${n.subject}:\n${n.body.slice(0,600)}`).join('\n\n---\n\n');const TAGS={'war':'tag-war','crisis':'tag-crisis','econ':'tag-econ','elect':'tag-elect','energy':'tag-energy'};try{const res=await window.cowork.askClaude(`Today: ${todayStr()}.\n${ctx?'Context:\n'+ctx:''}\nGive 6 geopolitical/world news cards for a WorldMonitor-style dashboard.\nReturn ONLY valid JSON: [{"tag":"war|crisis|econ|elect|energy","emoji":"🔴|⚡|💸|🗳️|⚠️","label":"<tag label>","title":"<10 words>","body":"<2 sentences>","source_name":"<publication>","source_url":"<direct url>"}]`,[]);const cards=pj(res);if(!Array.isArray(cards)||!cards.length)return;document.getElementById('geoContent').innerHTML=`<div class="wgrid">${cards.map(c=>{const tc=TAGS[c.tag]||'tag-econ';return`<div class="wi"><div class="wi-tag ${tc}">${esc(c.emoji||'')} ${esc(c.label||'')}</div><div class="wi-title">${esc(c.title||'')}</div><div class="wi-body">${esc(c.body||'')}</div>${c.source_url?`<a class="wi-src" href="${esc(c.source_url)}" target="_blank">↗ ${esc(c.source_name||'Source')}</a>`:''}</div>`}).join('')}</div>`}catch{}}
+async function renderSum(nls){const ctx=nls.map(n=>n.subject+': '+n.body.slice(0,300)).join('\n');try{const res=await window.cowork.askClaude(`Today: ${todayStr()}.\n${ctx?'Context:\n'+ctx:''}\nGive a 6-item morning outlook + sentiment for an MDSA finance student (priorities: DLT/tokenisation, European bonds, warrants, AI, macro, geopolitics).\nReturn ONLY valid JSON:\n{"pills":[{"label":"DLT & Tokenisation","value":"<6 words max>"},{"label":"Bonds Europe","value":"..."},{"label":"Warrants","value":"..."},{"label":"AI & Tech","value":"..."},{"label":"Key Events","value":"..."},{"label":"Risk Signal","value":"..."}],"sentiment":"positive|neutral|negative","note":"<one sentence — MDSA lens>"}`,[]);const d=pj(res);if(!d||!Array.isArray(d.pills))return;const DM={positive:'g',neutral:'y',negative:'r'};const LM={positive:'😊 Constructive — MDSA lens',neutral:'😐 Cautiously Constructive — MDSA lens',negative:'😟 Defensive — MDSA lens'};const s=(d.sentiment||'neutral').toLowerCase();document.getElementById('sumContent').innerHTML=`<div class="spills">${d.pills.map(p=>`<div class="sp"><div class="spl">${esc(p.label)}</div><div class="spv">${esc(p.value)}</div></div>`).join('')}</div><div class="sr"><div class="dot ${DM[s]||'y'}"></div><strong>${LM[s]||esc(d.sentiment)}</strong><span class="sn">&nbsp;— ${esc(d.note||'')}</span></div>`}catch{}}
+async function refreshAll(){const btn=document.getElementById('rbtn');btn.disabled=true;btn.classList.add('loading');btn.innerHTML='<span class="spin">↻</span> Refreshing…';document.getElementById('dateBadge').textContent=todayStr();loadCrypto();const nls=await fetchNL();await Promise.all([renderSum(nls),renderBC(nls),renderAI(nls),renderMontis(nls),renderBonds(),renderWarrants(),renderMarkets(nls),renderPoly(nls),renderGeo(nls)]);btn.disabled=false;btn.classList.remove('loading');btn.innerHTML='<span class="spin">↻</span> Refresh'}
+window.addEventListener('DOMContentLoaded',()=>{document.getElementById('dateBadge').textContent=todayStr();loadCrypto(true);setInterval(()=>loadCrypto(false),30000)});
+</script>
+</body>
+</html>
