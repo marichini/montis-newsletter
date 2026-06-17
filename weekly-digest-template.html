@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weekly Digest — Montis · Matteo</title>
+<style>
+:root{color-scheme:light;--bg:#f4f3ef;--card:#ffffff;--border:#eeede8;--text:#111111;--muted:#999;--pill:#f7f6f2;--up:#16a34a;--dn:#dc2626;--neu:#d97706;--montis:#4338ca;--montis-bg:#eef2ff}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:14px}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:20px 14px 60px}
+.hdr{max-width:780px;margin:0 auto 14px;display:flex;align-items:flex-end;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.hdr h1{font-size:22px;font-weight:900;letter-spacing:-.5px}
+.hdr .tag{font-size:11px;color:var(--muted);margin-top:2px}
+.hdr-r{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.dbadge{font-size:11px;font-weight:700;color:#555;background:#e8e6e0;padding:4px 11px;border-radius:20px}
+.toggle{display:inline-flex;background:#fff;border:1px solid var(--border);border-radius:20px;padding:2px;gap:0}
+.toggle a{font-size:10px;font-weight:800;color:#888;text-decoration:none;padding:4px 11px;border-radius:18px;transition:all .15s;letter-spacing:.3px}
+.toggle a.active{background:#111;color:#fff}
+.toggle a:hover:not(.active){color:#111}
+.nav{max-width:780px;margin:0 auto 14px;display:flex;gap:6px;flex-wrap:wrap}
+.nav-btn{font-size:11px;font-weight:700;color:#444;background:#fff;border:1px solid var(--border);padding:6px 11px;border-radius:20px;text-decoration:none;transition:all .15s;display:inline-flex;align-items:center;gap:4px;white-space:nowrap;cursor:pointer}
+.nav-btn:hover{background:#111;color:#fff;border-color:#111}
+.nav-btn:active{transform:scale(.96)}
+.g{max-width:780px;margin:0 auto;display:grid;grid-template-columns:1fr;gap:14px}
+.card{background:var(--card);border-radius:14px;padding:18px 20px;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.ch{display:flex;align-items:center;gap:9px;margin-bottom:15px}
+.ci{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.ci-news{background:#fff8e1}.ci-comp{background:#fee2e2}.ci-cal{background:#f0f9ff}.ci-earn{background:#f0f9ff}.ci-reg{background:#fee2e2}.ci-conf{background:#e0e7ff}
+.ci-mkts{background:#f0fdf4}.ci-heat{background:#fef3c7}.ci-mov{background:#ecfdf5}.ci-risk{background:#fee2e2}
+.ci-people{background:#fef3c7}.ci-ma{background:#dbeafe}.ci-deals{background:#dbeafe}.ci-read{background:#f3e8ff}
+.ct{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:#111}
+.cs{font-size:10px;color:var(--muted);margin-top:2px}
+.up{color:var(--up)}.dn{color:var(--dn)}.neu{color:var(--neu)}
+.tag-montis{display:inline-flex;align-items:center;font-size:9px;font-weight:800;color:#3730a3;background:#e0e7ff;padding:2px 7px;border-radius:20px;margin-left:5px;text-transform:uppercase;letter-spacing:.4px}
+
+/* Relevance tags */
+.rtag{display:inline-flex;align-items:center;gap:3px;font-size:8px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;padding:2px 7px;border-radius:20px;margin-right:6px;vertical-align:middle;white-space:nowrap}
+.rt-action{background:#fee2e2;color:#991b1b}
+.rt-watch{background:#fef3c7;color:#92400e}
+.rt-context{background:#f1f0ec;color:#6b7280}
+/* Mandatory Montis-angle callout */
+.montis-angle{display:block;margin-top:8px;background:var(--montis-bg);border-left:3px solid #6366f1;border-radius:0 8px 8px 0;padding:7px 11px;font-size:12px;color:var(--montis);line-height:1.5}
+.montis-angle strong{color:#312e81;font-weight:800}
+
+/* Big news */
+.bignews{display:flex;flex-direction:column;gap:14px}
+.bn{padding:14px 16px;border-radius:11px;background:var(--pill);border-left:3px solid #111}
+/* Big News tags: monochrome by default so the eye isn't pulled by a rainbow; DLT keeps a faint indigo to signal Montis-priority stories */
+.bn-tag{display:inline-block;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;padding:3px 9px;border-radius:10px;margin-bottom:8px;background:#ecebe6;color:#5b5b55;border:1px solid #e2e0d9}
+.bn-tag.rates,.bn-tag.geo,.bn-tag.macro,.bn-tag.energy,.bn-tag.ai{background:#ecebe6;color:#5b5b55}
+.bn-tag.dlt{background:var(--montis-bg);color:var(--montis);border-color:#dcdcf5}
+.bn h3{font-size:15px;font-weight:800;color:#111;margin-bottom:6px;line-height:1.3}
+.bn p{font-size:13px;color:#555;line-height:1.55}
+.bn-src{display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:700;color:#999;text-decoration:none;background:rgba(0,0,0,.05);padding:3px 9px;border-radius:10px;margin-top:8px;transition:background .15s,color .15s}
+.bn-src:hover{background:#111;color:#fff}
+
+/* Competitor Tracker */
+.comp-note{font-size:11px;color:#777;margin-bottom:11px;line-height:1.45}
+.comp-table{width:100%;border-collapse:collapse;font-size:11.5px}
+.comp-table th{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);text-align:left;padding:8px;border-bottom:2px solid var(--border)}
+.comp-table td{padding:11px 8px;border-bottom:1px solid var(--border);color:#444;line-height:1.45;vertical-align:top}
+.comp-table tr:last-child td{border-bottom:none}
+.comp-name{font-weight:800;color:#111;font-size:12px;display:block}
+.comp-cat{display:inline-block;font-size:8px;font-weight:700;color:#666;background:var(--pill);padding:1px 6px;border-radius:6px;margin-top:4px}
+.comp-reg .ok{color:var(--up);font-weight:800}
+.comp-reg .pend{color:var(--neu);font-weight:800}
+.comp-reg .live{color:#1e40af;font-weight:800}
+.comp-sig{color:#3730a3;font-weight:600}
+.comp-src{color:#999;text-decoration:none;font-weight:700;font-size:10px}
+.comp-src:hover{color:#111;text-decoration:underline}
+
+/* Number / generic stat card reused for YTD */
+.ytd-bar{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.ytd-item{background:linear-gradient(135deg,#1e1b4b,#312e81);color:#fff;border-radius:11px;padding:14px 12px;text-align:center}
+.ytd-big{font-size:30px;font-weight:900;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-1px}
+.ytd-lbl{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:#c7d2fe;margin-top:7px}
+
+/* Calendar / Agenda */
+.cal-list{display:flex;flex-direction:column}
+.cal-day{padding:11px 0;border-bottom:1px solid var(--border);display:grid;grid-template-columns:90px 1fr;gap:12px;align-items:start}
+.cal-day:last-child{border-bottom:none}
+.cal-day.past{opacity:.55}
+.cal-day.today .cal-d{background:#111;color:#fff}
+.cal-d{font-size:10px;font-weight:800;color:#111;text-transform:uppercase;letter-spacing:.4px;background:var(--pill);padding:5px 9px;border-radius:8px;text-align:center}
+.cal-e{font-size:13px;color:#444;line-height:1.5}
+.cal-e strong{display:inline;font-weight:700;color:#111}
+.cal-e .pill{display:inline-block;font-size:9px;font-weight:800;background:#fef3c7;color:#92400e;padding:1px 6px;border-radius:8px;margin-right:5px;text-transform:uppercase;letter-spacing:.3px}
+.src-link{display:inline-flex;align-items:center;font-size:10px;font-weight:700;color:#999;text-decoration:none;background:rgba(0,0,0,.05);padding:2px 8px;border-radius:9px;transition:background .15s,color .15s;vertical-align:middle}
+.src-link:hover{background:rgba(0,0,0,.1);color:#111}
+
+/* Earnings */
+.earn-list{list-style:none;padding:0;margin:0}
+.earn-item{padding:10px 0;border-bottom:1px solid var(--border);display:grid;grid-template-columns:90px 1fr;gap:11px;align-items:start}
+.earn-item:last-child{border-bottom:none}
+.earn-day{font-size:10px;font-weight:800;color:#111;text-transform:uppercase;letter-spacing:.4px;background:var(--pill);padding:5px 9px;border-radius:8px;text-align:center;white-space:nowrap}
+.earn-body{font-size:13px;color:#444;line-height:1.5}
+.earn-body strong{font-weight:700;color:#111}
+.earn-body .watch{font-size:10px;color:#888;display:block;margin-top:2px;font-style:italic}
+
+/* Regulatory radar + deadlines */
+.deadline-block{background:#0f172a;color:#fff;border-radius:11px;padding:14px 16px;margin-bottom:15px}
+.db-title{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:#fbbf24;margin-bottom:11px;display:flex;align-items:center;gap:6px}
+.deadline-row{display:grid;grid-template-columns:1fr auto;gap:10px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.1);align-items:center}
+.deadline-row:last-child{border-bottom:none}
+.deadline-label{font-size:12px;color:#e2e8f0;line-height:1.4}
+.deadline-label strong{color:#fff;font-weight:700}
+.deadline-label .src-link{background:rgba(255,255,255,.1);color:#cbd5e1;margin-left:4px}
+.deadline-label .src-link:hover{background:rgba(255,255,255,.2);color:#fff}
+.countdown{font-size:11px;font-weight:800;color:#0f172a;background:#fbbf24;padding:4px 10px;border-radius:20px;white-space:nowrap;font-variant-numeric:tabular-nums;text-align:center;min-width:74px}
+.countdown.soon{background:#f87171;color:#fff}
+.countdown.past{background:#475569;color:#cbd5e1}
+.reg-list{list-style:none;padding:0;margin:0}
+.reg-item{padding:10px 0;border-bottom:1px solid var(--border);display:grid;grid-template-columns:120px 1fr;gap:12px;align-items:start}
+.reg-item:last-child{border-bottom:none}
+.reg-when{font-size:9px;font-weight:800;color:#991b1b;text-transform:uppercase;letter-spacing:.4px;background:#fee2e2;padding:4px 8px;border-radius:8px;text-align:center;white-space:nowrap}
+.reg-when.open{color:#075985;background:#e0f2fe}
+.reg-when.future{color:#3730a3;background:#e0e7ff}
+.reg-body{font-size:13px;color:#444;line-height:1.5}
+.reg-body strong{font-weight:700;color:#111}
+
+/* Conferences */
+.conf-list{list-style:none;padding:0;margin:0}
+.conf-item{padding:11px 0;border-bottom:1px solid var(--border);display:grid;grid-template-columns:auto 1fr auto;gap:11px;align-items:center}
+.conf-item:last-child{border-bottom:none}
+.conf-when{font-size:10px;font-weight:800;color:#3730a3;text-transform:uppercase;letter-spacing:.4px;background:#e0e7ff;padding:5px 9px;border-radius:8px;text-align:center;white-space:nowrap}
+.conf-body{font-size:13px;color:#444;line-height:1.5}
+.conf-body strong{font-weight:700;color:#111}
+.conf-body .conf-loc{font-size:11px;color:#888;display:block;margin-top:2px}
+.conf-link{font-size:10px;font-weight:700;color:#666;text-decoration:none;background:rgba(0,0,0,.05);padding:5px 10px;border-radius:10px;transition:all .15s;white-space:nowrap}
+.conf-link:hover{background:#111;color:#fff}
+
+/* Markets */
+.mkt-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+.mkt-item{background:var(--pill);border-radius:9px;padding:10px 12px}
+.mkt-item .mn{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:3px}
+.mkt-item .mv{font-size:16px;font-weight:800;color:var(--text);font-variant-numeric:tabular-nums}
+.mkt-item .mc{font-size:11px;font-weight:700;margin-top:2px}
+.mkt-item .ms{font-size:9px;color:#bbb;margin-top:3px}
+.mkt-item .ms a{color:#999;text-decoration:none}
+.mkt-item .ms a:hover{color:#333}
+
+/* Heatmap */
+.heat-cat{font-size:10px;font-weight:800;color:#666;text-transform:uppercase;letter-spacing:.6px;margin:10px 0 5px;padding-top:8px;border-top:1px dashed var(--border)}
+.heat-cat:first-of-type{margin-top:0;padding-top:0;border-top:none}
+.heat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:5px}
+.heat-cell{padding:8px 10px;border-radius:7px;font-variant-numeric:tabular-nums}
+.heat-cell .h-name{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.3px;opacity:.7;margin-bottom:2px}
+.heat-cell .h-val{font-size:12px;font-weight:800}
+.h-up-strong{background:#86efac;color:#14532d}
+.h-up{background:#bbf7d0;color:#166534}
+.h-up-light{background:#dcfce7;color:#15803d}
+.h-flat{background:#f7f6f2;color:#666}
+.h-dn-light{background:#fef2f2;color:#991b1b}
+.h-dn{background:#fecaca;color:#991b1b}
+.h-dn-strong{background:#fca5a5;color:#7f1d1d}
+
+/* Movers */
+.movers-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.movers-col{background:var(--pill);border-radius:9px;padding:13px 15px}
+.movers-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;padding-bottom:7px;border-bottom:1px solid var(--border)}
+.movers-list{list-style:none;padding:0;margin:0}
+.movers-list li{padding:9px 0;border-bottom:1px solid var(--border);line-height:1.5}
+.movers-list li:last-child{border-bottom:none}
+.movers-list .mv-head{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:2px}
+.movers-list .mv-name{font-size:12px;font-weight:700;color:#111}
+.mover-chg{font-size:11px;font-weight:800;white-space:nowrap}
+.mover-detail{font-size:11px;color:#777;line-height:1.45;display:block}
+
+/* Risk indicators */
+.risk-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.risk-item{background:var(--pill);border-radius:9px;padding:11px 13px}
+.risk-item .rn{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;color:#666;margin-bottom:3px}
+.risk-item .rv{font-size:18px;font-weight:800;color:#111;font-variant-numeric:tabular-nums}
+.risk-item .rc{font-size:11px;font-weight:700;margin-top:2px}
+.risk-item .rh{font-size:9px;color:#999;margin-top:4px;line-height:1.4}
+.risk-item .rh a{color:#999;text-decoration:none}
+.risk-item .rh a:hover{color:#333}
+
+/* People moves */
+.people-list{list-style:none;padding:0;margin:0}
+.people-item{padding:11px 0;border-bottom:1px solid var(--border);display:grid;grid-template-columns:36px 1fr;gap:11px;align-items:start}
+.people-item:last-child{border-bottom:none}
+.people-avatar{width:36px;height:36px;background:var(--pill);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px}
+.people-body{font-size:13px;color:#444;line-height:1.5}
+.people-body .p-name{font-weight:800;color:#111}
+.people-body .p-flow{display:inline-block;margin:0 5px;color:#aaa;font-weight:700}
+.people-body .p-detail{font-size:11px;color:#888;display:block;margin-top:2px;line-height:1.45}
+
+/* M&A table */
+.ma-table{width:100%;border-collapse:collapse;font-size:11px}
+.ma-table th{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);text-align:left;padding:8px;border-bottom:1px solid var(--border)}
+.ma-table td{padding:9px 8px;border-bottom:1px solid var(--border);font-variant-numeric:tabular-nums;color:#444;line-height:1.4}
+.ma-table tr:last-child td{border-bottom:none}
+.ma-table td strong{color:#111;font-weight:700}
+.ma-table td a{color:#999;text-decoration:none;font-weight:700;font-size:10px}
+.ma-table td a:hover{color:#111;text-decoration:underline}
+.ma-table .xref{font-size:8px;font-weight:800;color:#3730a3;background:#e0e7ff;padding:1px 5px;border-radius:6px;text-transform:uppercase;letter-spacing:.3px;white-space:nowrap}
+
+/* Deals table (tokenisation) */
+.deals-table{width:100%;border-collapse:collapse;font-size:11px}
+.deals-table th{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);text-align:left;padding:8px;border-bottom:1px solid var(--border)}
+.deals-table td{padding:9px 8px;border-bottom:1px solid var(--border);font-variant-numeric:tabular-nums;font-size:11px;color:#444;line-height:1.4}
+.deals-table tr:last-child td{border-bottom:none}
+.deals-table td strong{color:#111;font-weight:700}
+.deals-table td a{color:#999;text-decoration:none;font-weight:700;font-size:10px}
+.deals-table td a:hover{color:#111;text-decoration:underline}
+.deals-table .lu{font-size:8px;font-weight:800;color:#92400e;background:#fef3c7;padding:1px 5px;border-radius:6px;white-space:nowrap}
+
+/* Read card */
+.read-card{background:var(--pill);border-radius:11px;padding:17px 19px;border-left:3px solid #6366f1}
+.read-meta{font-size:10px;font-weight:800;color:#6b21a8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.read-title{font-size:15px;font-weight:800;color:#111;margin-bottom:9px;line-height:1.35}
+.read-why{font-size:13px;color:#555;line-height:1.6}
+
+@media(max-width:640px){
+  .mkt-grid{grid-template-columns:1fr 1fr}
+  .heat-grid{grid-template-columns:1fr 1fr}
+  .risk-grid{grid-template-columns:1fr 1fr}
+  .ytd-bar{grid-template-columns:1fr}
+  .cal-day,.earn-item{grid-template-columns:70px 1fr}
+  .reg-item{grid-template-columns:95px 1fr;gap:9px}
+  .conf-item{grid-template-columns:auto 1fr;row-gap:5px}
+  .conf-link{justify-self:start;grid-column:2}
+  .movers-grid{grid-template-columns:1fr}
+  .nav{overflow-x:auto;flex-wrap:nowrap;padding-bottom:4px;-webkit-overflow-scrolling:touch}
+  .nav::-webkit-scrollbar{display:none}
+  .deals-table,.ma-table,.comp-table{font-size:10px}
+  .deals-table th,.deals-table td,.ma-table th,.ma-table td,.comp-table th,.comp-table td{padding:6px 5px}
+}
+@media(min-width:900px){
+  .hdr,.nav,.g{max-width:1120px}
+  .g{grid-template-columns:1fr 1fr;gap:14px}
+  .fw{grid-column:1/-1}
+  .mkt-grid{grid-template-columns:repeat(6,1fr)}
+  .heat-grid{grid-template-columns:repeat(6,1fr)}
+  .risk-grid{grid-template-columns:repeat(3,1fr)}
+  .nav{position:sticky;top:8px;z-index:10;background:rgba(244,243,239,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:9px 12px;border-radius:24px;box-shadow:0 2px 12px rgba(0,0,0,.05)}
+  .card{padding:20px 22px}
+  /* keep running text at a readable measure on wide screens; tables/grids stay full width */
+  .bignews,.reg-list{max-width:84ch}
+}
+@media(min-width:1200px){
+  .hdr,.nav,.g{max-width:1180px}
+  .mkt-grid,.heat-grid{grid-template-columns:repeat(8,1fr)}
+}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div>
+    <h1>📊 Montis Weekly</h1>
+    <div class="tag">Big News · Competitors · Regulatory · Tokenisation · Markets · People — Matteo</div>
+  </div>
+  <div class="hdr-r">
+    <div class="toggle">
+      <a href="daily-digest.html">📰 Daily</a>
+      <a href="weekly-digest.html" class="active">📊 Weekly</a>
+    </div>
+    <div class="dbadge">WEEK_PLACEHOLDER</div>
+  </div>
+</div>
+
+<nav class="nav" aria-label="Sections">
+  <a href="#sec-news" class="nav-btn">📰 Big News</a>
+  <a href="#sec-comp" class="nav-btn">🥊 Competitors</a>
+  <a href="#sec-reg" class="nav-btn">⚖️ Regulatory</a>
+  <a href="#sec-deals" class="nav-btn">🎯 Tokenisation</a>
+  <a href="#sec-cal" class="nav-btn">📅 Agenda</a>
+  <a href="#sec-earn" class="nav-btn">📊 Earnings</a>
+  <a href="#sec-conf" class="nav-btn">🏛️ Confs</a>
+  <a href="#sec-mkts" class="nav-btn">📈 Markets</a>
+  <a href="#sec-heat" class="nav-btn">🗺️ Heatmap</a>
+  <a href="#sec-mov" class="nav-btn">🏆 Movers</a>
+  <a href="#sec-risk" class="nav-btn">📉 Risk</a>
+  <a href="#sec-people" class="nav-btn">👤 People</a>
+  <a href="#sec-ma" class="nav-btn">🤝 M&amp;A</a>
+  <a href="#sec-read" class="nav-btn">📚 Read</a>
+</nav>
+
+<div class="g">
+
+  <!-- 1. BIG NEWS (DLT-first: >=2 of 4 must be DLT/post-trade/regulatory) -->
+  <div class="card fw" id="sec-news">
+    <div class="ch">
+      <div class="ci ci-news">📰</div>
+      <div>
+        <div class="ct">Big News of the Week</div>
+        <div class="cs">The 4 stories that mattered · DLT-first filter (≥2 DLT/post-trade/regulatory)</div>
+      </div>
+    </div>
+    <div class="bignews">
+      <div class="bn">
+        <span class="bn-tag dlt">⚖️ Regulatory · DLT</span>
+        <h3>ESMA DLT Pilot Regime consultation closed Jun 15 — Q3 framework guidance to lock EU CSD infrastructure through 2027</h3>
+        <p>The ESMA consultation on the DLT Pilot Regime extension closed today. All respondents — including new entrant <strong>Euronext Securities</strong> (CSSF application filed Jun 12) — have submitted. ESMA enters a multi-week collation phase; <strong>Q3 2026 final guidance</strong> will determine broader CSD coverage, thresholds, and the tokenised-securities market-infrastructure framework through 2027. This is the last major EU regulatory shaping event before the framework is locked.</p>
+        <div class="montis-angle"><strong>💡 Montis angle:</strong> The consultation window that defines the rules Montis operates under is now closed. Q3 ESMA guidance becomes the next hard milestone — every strategic decision on authorisation scope, asset classes and thresholds should be stress-tested against the expected framework output.</div>
+        <a class="bn-src" href="https://www.esma.europa.eu" target="_blank">↗ ESMA · Jun 15</a>
+      </div>
+      <div class="bn">
+        <span class="bn-tag dlt">⛓️ DLT · Competitive</span>
+        <h3>Euronext Securities files CSSF DLT CSD pilot application (Jun 12) — Tier-1 incumbent enters Montis's home jurisdiction</h3>
+        <p>Euronext Securities, operator of six European CSDs with €14T+ in assets under custody, filed a formal <strong>DLT Pilot Regime application with the CSSF Luxembourg</strong> on June 12 — targeting tokenised fund units and structured-product settlement. Expected CSSF decision: <strong>Q4 2026</strong>. This is the first Tier-1 CSD incumbent to enter the Luxembourg DLT infrastructure race directly.</p>
+        <div class="montis-angle"><strong>💡 Montis angle:</strong> The most direct competitive signal to date — a regulated incumbent with existing EU relationships and full CSDR track record is in the same CSSF queue. Accelerating to authorisation before Euronext completes its process is now a concrete strategic imperative; DLT-nativeness and Pontes-readiness are the differentiation axes.</div>
+        <a class="bn-src" href="https://www.euronext.com/en/post-trade/euronext-securities" target="_blank">↗ Euronext Securities · Jun 12</a>
+      </div>
+      <div class="bn">
+        <span class="bn-tag rates">📊 Macro · Post-ECB week</span>
+        <h3>Post-ECB week Jun 8–12: S&P −0.8% week · Bund 3.05% · Brent eases to $91.50 · BoE Jun 19 next catalyst</h3>
+        <p>The week of June 8–12 saw markets absorb the ECB's <strong>+25bp (→ 2.25%) delivered Jun 11</strong> — Lagarde "gradual but persistent" kept September 2nd hike at 65%+. Intraweek volatility: Dow <strong>−953pts on Jun 10</strong> (Iran strikes + CPI), then partial recovery Jun 11 (S&P <strong>+0.8% → 7,325</strong>). Week closed: S&amp;P −0.8%, Nasdaq −1.5%, Bund 10Y 3.05%, Brent $91.50. <strong>BoE Jun 19</strong> is the next major event; UK CPI Tue Jun 17 is the key input.</p>
+        <a class="bn-src" href="https://finance.yahoo.com/markets/" target="_blank">↗ Yahoo Finance · Jun 12</a>
+      </div>
+      <div class="bn">
+        <span class="bn-tag geo">⚡ Geopolitics · Iran</span>
+        <h3>US-Iran MoU framework holds through weekend — Brent stabilises $91.50, Hormuz passage open, no new strikes Jun 13–15</h3>
+        <p>No new US or Iranian strike activity over the weekend Jun 13–15. Both sides are holding the 60-day MoU framework open; Brent stabilised at <strong>$91.50</strong> (down from the $93.63 spike on Jun 8). Hormuz passage remains open but at elevated alert. <strong>US Congress Iran sanctions vote</strong> expected this week — a potential flashpoint. US-Iran deal on Polymarket at 62% for June.</p>
+        <a class="bn-src" href="https://www.reuters.com" target="_blank">↗ Reuters · Jun 15</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. COMPETITOR TRACKER (NEW) -->
+  <div class="card fw" id="sec-comp">
+    <div class="ch">
+      <div class="ci ci-comp">🥊</div>
+      <div>
+        <div class="ct">Competitor Tracker <span class="tag-montis">refresh every Mon</span></div>
+        <div class="cs">Fixed peer grid · Latest news · Regulatory status · Signal for Montis · Week of June 15–21, 2026</div>
+      </div>
+    </div>
+    <div class="comp-note">Full refresh every Monday (mandatory). Peer set per V2 roadmap — confirm/extend with the team. Deals cross-referenced with the M&amp;A &amp; Funding tracker below.</div>
+    <table class="comp-table">
+      <thead>
+        <tr><th style="width:130px">Peer</th><th>Latest news</th><th style="width:110px">Reg. status</th><th>Signal for Montis</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="comp-name">Paxos</span><span class="comp-cat">US · stablecoin + CSD</span></td>
+          <td>PSSC registered as 1st US blockchain clearing agency, SEC §17A (Jun 4). <a class="comp-src" href="https://www.paxos.com/newsroom/sec-registers-paxos-securities-settlement-company-as-a-clearing-agency" target="_blank">↗</a></td>
+          <td class="comp-reg"><span class="ok">✔ Registered</span><br>SEC 18-mo temp</td>
+          <td class="comp-sig">The breakthrough reference case — a compliant blockchain CSD now exists. Raises the bar and the credibility of the whole category.</td>
+        </tr>
+        <tr>
+          <td><span class="comp-name">Axiology</span><span class="comp-cat">LT/EU · DLT CSD (SME)</span></td>
+          <td>Lithuania-licensed DLT-based CSD targeting SME securities under the EU Pilot Regime; expanding issuer onboarding.</td>
+          <td class="comp-reg"><span class="ok">✔ Licensed</span><br>EU Pilot (LT)</td>
+          <td class="comp-sig">Closest EU-licensed peer in the DLT CSD lane — watch their Pilot Regime scope and asset coverage as a template/benchmark.</td>
+        </tr>
+        <tr>
+          <td><span class="comp-name">SDX</span><span class="comp-cat">CH · regulated DLT exchange+CSD</span></td>
+          <td>SIX Digital Exchange continues native digital-bond issuance and tokenised collateral; multi-issuer pipeline.</td>
+          <td class="comp-reg"><span class="ok">✔ Licensed</span><br>FINMA exch+CSD</td>
+          <td class="comp-sig">The most mature regulated DLT exchange+CSD stack. Proof the integrated model works — but outside the EU/T2S perimeter Montis targets.</td>
+        </tr>
+        <tr>
+          <td><span class="comp-name">21X</span><span class="comp-cat">DE/EU · DLT TSS</span></td>
+          <td>BaFin-approved DLT trading &amp; settlement system live under the EU Pilot Regime; onboarding tokenised securities.</td>
+          <td class="comp-reg"><span class="ok">✔ Approved</span><br>EU Pilot (DE)</td>
+          <td class="comp-sig">First fully EU-regulated DLT exchange under the Pilot Regime — the direct precedent for the authorisation path Montis is on.</td>
+        </tr>
+        <tr>
+          <td><span class="comp-name">Clearstream D7</span><span class="comp-cat">DE · ICSD digital platform</span></td>
+          <td>D7 expanding into corporate-issuer onboarding; joint Eurobond digitisation with Euroclear (€14T market).</td>
+          <td class="comp-reg"><span class="live">● Incumbent</span><br>ICSD in-house</td>
+          <td class="comp-sig">Incumbent ICSD digitising from within. The "do nothing new, digitise the legacy" threat — competes on trust and existing flow.</td>
+        </tr>
+        <tr>
+          <td><span class="comp-name">LuxCSD</span><span class="comp-cat">LU · CSD</span></td>
+          <td>Luxembourg CSD (Clearstream/BCL JV); reference domestic incumbent for the LU issuance the Blockchain Laws target.</td>
+          <td class="comp-reg"><span class="live">● Incumbent</span><br>CSDR (LU)</td>
+          <td class="comp-sig">The home-market incumbent. Direct overlap with Montis's LU issuance base — the account every LU issuer already has.</td>
+        </tr>
+        <tr>
+          <td><span class="comp-name">Euroclear</span><span class="comp-cat">BE/EU · ICSD</span></td>
+          <td>"One Nordic" CSD migration on TCS BaNCS + T2S (Jun 4); D-FMI digital platform + EIB digital bonds.</td>
+          <td class="comp-reg"><span class="live">● Incumbent</span><br>ICSD / CSDR</td>
+          <td class="comp-sig">The scale incumbent modernising on T2S. Slow but deep-pocketed — Montis competes on native-DLT speed and cost, not reach.</td>
+        </tr>
+        <tr>
+          <td><span class="comp-name">Euronext Securities</span><span class="comp-cat">LU/EU · Tier-1 CSD · NEW</span></td>
+          <td>Filed CSSF DLT CSD pilot application Jun 12 — targeting tokenised fund units &amp; structured products. CSSF assessment begins. <a class="comp-src" href="https://www.euronext.com/en/post-trade/euronext-securities" target="_blank">↗</a></td>
+          <td class="comp-reg"><span class="pend">⏳ Pending</span><br>CSSF (LU) · Q4 decision</td>
+          <td class="comp-sig">The most direct new threat — a Tier-1 incumbent now in the same CSSF queue. Montis must reach authorisation before Euronext completes its process; DLT-nativeness and Pontes-readiness are the pitch.</td>
+        </tr>
+        <tr>
+          <td><span class="comp-name">TreasurySpring</span><span class="comp-cat">UK · short-term fixed income</span></td>
+          <td>Fixed-term fund platform scaling tokenised cash-management / MMF-style access for institutions.</td>
+          <td class="comp-reg"><span class="pend">~ Adjacent</span><br>FCA (UK)</td>
+          <td class="comp-sig">Adjacent, not a CSD — but signals institutional demand for tokenised short-term instruments Montis could settle.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 3. REGULATORY RADAR + DEADLINES TRACKER (enhanced) -->
+  <div class="card fw" id="sec-reg">
+    <div class="ch">
+      <div class="ci ci-reg">⚖️</div>
+      <div>
+        <div class="ct">Regulatory Radar + Deadlines Tracker</div>
+        <div class="cs">Sticky deadline block (persists until expiry) · Open consultations · Application windows</div>
+      </div>
+    </div>
+    <div class="deadline-block">
+      <div class="db-title">⏳ Nearest deadlines — countdown from today <span style="color:#94a3b8;font-weight:600;letter-spacing:0;text-transform:none">(entries persist until the deadline passes)</span></div>
+      <div id="deadlineRows">
+        <div class="deadline-row" data-deadline="2026-06-19">
+          <div class="deadline-label"><strong>BoE · MPC rate decision</strong> — +25bp → 5.50% priced at 80%; UK CPI Tue 17 key input <a class="src-link" href="https://www.bankofengland.co.uk" target="_blank">↗ BoE</a></div>
+          <div class="countdown" data-cd>—</div>
+        </div>
+        <div class="deadline-row" data-deadline="2026-09-01">
+          <div class="deadline-label"><strong>ECB · Pontes</strong> — tokenised central-bank-money go-live (onboarding open now) <a class="src-link" href="https://www.ecb.europa.eu" target="_blank">↗ ECB</a></div>
+          <div class="countdown" data-cd>—</div>
+        </div>
+        <div class="deadline-row" data-deadline="2026-09-30">
+          <div class="deadline-label"><strong>EU / EBA · MiCA stablecoin reporting TS</strong> — technical standards expected final (Q3 2026) <a class="src-link" href="https://www.eba.europa.eu" target="_blank">↗ EBA</a></div>
+          <div class="countdown" data-cd>—</div>
+        </div>
+        <div class="deadline-row" data-deadline="2026-09-30">
+          <div class="deadline-label"><strong>US SEC · Tokenised-securities relief</strong> — extension of the Dec 2025 DTC no-action letter (Q3 2026) <a class="src-link" href="https://www.sec.gov" target="_blank">↗ SEC</a></div>
+          <div class="countdown" data-cd>—</div>
+        </div>
+      </div>
+    </div>
+    <ul class="reg-list">
+      <li class="reg-item"><div class="reg-when open">open now</div><div class="reg-body"><strong>CSSF · Luxembourg DLT MTF / SS</strong> — application window open for regulated DLT market infrastructures under the EU Pilot Regime. <em>Montis-critical — directly on the authorisation path.</em> <a class="bn-src" href="https://www.cssf.lu" target="_blank">↗ CSSF</a></div></li>
+      <li class="reg-item"><div class="reg-when" style="color:#374151;background:#e5e7eb;text-decoration:line-through">closed Jun 15 ✓</div><div class="reg-body"><strong>ESMA · DLT Pilot Regime extension</strong> — consultation CLOSED Jun 15. ESMA collation phase begins; Q3 2026 final guidance will lock EU DLT CSD framework. Montis response submitted. <a class="bn-src" href="https://www.esma.europa.eu" target="_blank">↗ ESMA</a></div></li>
+      <li class="reg-item"><div class="reg-when open">open now</div><div class="reg-body"><strong>ECB · Pontes onboarding</strong> — participant onboarding for the September 2026 tokenised-CBM go-live. <a class="bn-src" href="https://www.ecb.europa.eu" target="_blank">↗ ECB</a></div></li>
+      <li class="reg-item"><div class="reg-when future">Q3 2026</div><div class="reg-body"><strong>EU · MiCA stablecoin reporting</strong> — technical standards on stablecoin issuance reporting expected to be finalised. <a class="bn-src" href="https://www.eba.europa.eu" target="_blank">↗ EBA</a></div></li>
+      <li class="reg-item"><div class="reg-when future">Q3 2026</div><div class="reg-body"><strong>US SEC · Tokenised securities relief</strong> — extension of the December 2025 DTC no-action letter expected to broaden to non-DTCC issuers. <a class="bn-src" href="https://www.sec.gov" target="_blank">↗ SEC</a></div></li>
+      <li class="reg-item"><div class="reg-when">closed May 30</div><div class="reg-body"><strong>FCA · UK crypto regime — 2nd consultation</strong> — final responses ahead of the 2026 framework drafts in H2. <a class="bn-src" href="https://www.fca.org.uk" target="_blank">↗ FCA</a></div></li>
+    </ul>
+  </div>
+
+  <!-- 4. TOKENISATION PIPELINE — LU/EU (specialised) -->
+  <div class="card fw" id="sec-deals">
+    <div class="ch">
+      <div class="ci ci-deals">🎯</div>
+      <div>
+        <div class="ct">Tokenisation Pipeline — LU/EU</div>
+        <div class="cs">LU Blockchain Laws I–IV · DLT Pilot Regime · tokenised bonds / MMFs / structured products · MDSA-relevant</div>
+      </div>
+    </div>
+    <div class="ytd-bar">
+      <div class="ytd-item"><div class="ytd-big">23</div><div class="ytd-lbl">YTD issuances tracked</div></div>
+      <div class="ytd-item"><div class="ytd-big">€4.1bn</div><div class="ytd-lbl">YTD notional (approx)</div></div>
+      <div class="ytd-item"><div class="ytd-big">9</div><div class="ytd-lbl">under LU Blockchain Laws</div></div>
+    </div>
+    <div class="comp-note">Cumulative counter — reusable internal dataset for pricing benchmarks. Figures are working estimates; reconcile against primary issuer IR before citing externally. <em>Warrants / structured products folded in here (per V2 roadmap) until the team confirms whether warrants are a strategic axis.</em></div>
+    <table class="deals-table">
+      <thead>
+        <tr><th>Issuer</th><th>Type</th><th>Size</th><th>Chain / Tech</th><th>Settlement / Framework</th><th></th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>EIB</strong></td><td>Digital bond tap</td><td>€100m</td><td>Ethereum</td><td>BdF wholesale CBDC <span class="lu">EU Pilot</span></td><td><a href="https://www.eib.org" target="_blank">↗</a></td></tr>
+        <tr><td><strong>KfW</strong></td><td>2nd digital benchmark (signalled)</td><td>~€250m (H2)</td><td>TBD</td><td>BdF / Pontes</td><td><a href="https://www.kfw.de" target="_blank">↗</a></td></tr>
+        <tr><td><strong>SocGen FORGE</strong></td><td>Structured note pilot</td><td>€50m</td><td>Private DLT</td><td>EUR CoinVertible</td><td><a href="https://www.sgforge.com" target="_blank">↗</a></td></tr>
+        <tr><td><strong>JPMorgan AM</strong></td><td>JLTXX tokenised MMF (2nd)</td><td>—</td><td>Public Ethereum</td><td>GENIUS Act compliant</td><td><a href="https://www.prnewswire.com/news-releases/jp-morgan-asset-management-launches-second-tokenized-money-market-fund-on-ethereum-302771391.html" target="_blank">↗</a></td></tr>
+        <tr><td><strong>Clearstream + Euroclear</strong></td><td>Dematerialised Eurobond service</td><td>€14T market</td><td>D7 / X-DLT</td><td>ICSDs in-house</td><td><a href="https://www.euroclear.com/newsandinsights/en/press/2026/mr-10-euroclear-clearstream-digitise-eurobond-issuance.html" target="_blank">↗</a></td></tr>
+        <tr><td><strong>DTCC</strong></td><td>Tokenised collateral platform</td><td>—</td><td>Chainlink Runtime Env.</td><td>Q4 2026 launch</td><td><a href="https://www.coindesk.com/business/2026/05/12/dtcc-taps-chainlink-for-its-tokenized-collateral-platform-ahead-of-q4-launch" target="_blank">↗</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 5. AGENDA WEEK AHEAD -->
+  <div class="card fw" id="sec-cal">
+    <div class="ch">
+      <div class="ci ci-cal">📅</div>
+      <div>
+        <div class="ct">Agenda — Week Ahead</div>
+        <div class="cs">June 15–21, 2026 · Macro · Central banks · Earnings · Auctions</div>
+      </div>
+    </div>
+    <div class="cal-list">
+      <div class="cal-day today"><div class="cal-d">Mon 15 ★</div><div class="cal-e">📋 <strong>ESMA DLT Pilot Regime consultation closed</strong> — Montis response submitted, Q3 framework next · 🇺🇸 US Empire State Manufacturing (Jun, 8:30 ET) · BoE speakers begin · Quiet open post-ECB week</div></div>
+      <div class="cal-day"><div class="cal-d">Tue 16</div><div class="cal-e">🇬🇧 <strong>UK CPI May</strong> (key BoE input — hot print could move Jun 19 odds) · 🇺🇸 US Retail Sales May (8:30 ET) · US Industrial Production · <strong>Earnings: KB Home (KBH) AC</strong></div></div>
+      <div class="cal-day"><div class="cal-d">Wed 17</div><div class="cal-e">⚡ <strong>Flash PMIs — FR / DE / EU / UK / US</strong> (manufacturing + services) · 🇬🇧 UK Wage Growth (Avg Earnings May) · <strong>Earnings: FedEx (FDX) AC</strong> · ECB minutes (Jun 11 meeting) · 30Y UST auction</div></div>
+      <div class="cal-day"><div class="cal-d">Thu 18</div><div class="cal-e">🇺🇸 US Jobless Claims (8:30 ET) · Philly Fed (Jun) · 🏦 BoE MPC pre-blackout speakers (last window) · EU Current Account May · Point Zero Forum Zurich (–19)</div></div>
+      <div class="cal-day"><div class="cal-d">Fri 19 ⭐</div><div class="cal-e">🏦 <strong>BoE MPC rate decision</strong> — +25bp → 5.50% priced at 80% · 🇬🇧 UK Retail Sales May · 🇺🇸 US Housing Starts May · Point Zero Forum Zurich (last day) · <strong>Montis watch: BoE sets the EU rate benchmark for H2</strong></div></div>
+      <div class="cal-day"><div class="cal-d">Key risks</div><div class="cal-e">🏦 BoE surprise hold/cut on Jun 19 · 🇬🇧 UK CPI hot print Tue → repricing · 🕊️ Iran: US Congress sanctions vote this week · 📋 ESMA — watch for any immediate guidance signals · PMIs: EU slowdown signal</div></div>
+    </div>
+  </div>
+
+  <!-- 6. EARNINGS -->
+  <div class="card fw" id="sec-earn">
+    <div class="ch">
+      <div class="ci ci-earn">📊</div>
+      <div>
+        <div class="ct">Earnings This Week</div>
+        <div class="cs">What to watch · June 15-21, 2026</div>
+      </div>
+    </div>
+    <ul class="earn-list">
+      <li class="earn-item">
+        <div class="earn-day">Tue 16 Jun ⭐</div>
+        <div class="earn-body"><strong>KB Home (KBH) · after-close</strong><span class="watch">Watch: new home orders, cancellation rate, average selling price — housing demand read-across under high-rate environment; mortgage rate sensitivity with BoE Jun 19 in focus</span></div>
+      </li>
+      <li class="earn-item">
+        <div class="earn-day">Wed 17 Jun ⭐</div>
+        <div class="earn-body"><strong>FedEx (FDX) · after-close</strong><span class="watch">Watch: volume trends, yield per package, cost-cutting progress (DRIVE programme) · global trade proxy; Iran/Hormuz supply chain disruption read-across · consensus EPS ~$5.30</span></div>
+      </li>
+      <li class="earn-item">
+        <div class="earn-day">Already reported</div>
+        <div class="earn-body"><strong>Adobe (ADBE) · CrowdStrike (CRWD) — Thu Jun 11 AC</strong><span class="watch">Adobe: Firefly monetisation in-line, Creative Cloud ARPU steady — AI SaaS pricing holding · CRWD: net new ARR beat, cybersecurity demand robust</span></div>
+      </li>
+      <li class="earn-item">
+        <div class="earn-day">Already reported</div>
+        <div class="earn-body"><strong>Oracle (ORCL) -7% AH · Accenture (ACN) · Costco (COST) — Jun 10-11</strong><span class="watch">ORCL: Q4 EPS beat ($2.11 vs $1.89) but $70B FY27 capex spooked market · ACN: AI consulting spend solid · COST: traffic volumes resilient</span></div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- 7. INDUSTRY CONFERENCES -->
+  <div class="card fw" id="sec-conf">
+    <div class="ch">
+      <div class="ci ci-conf">🏛️</div>
+      <div>
+        <div class="ct">Industry Conferences</div>
+        <div class="cs">Events worth tracking · Networking opportunities</div>
+      </div>
+    </div>
+    <ul class="conf-list">
+      <li class="conf-item">
+        <div class="conf-when" style="color:#999;background:#f3f4f6;text-decoration:line-through">Jun 3-5 ✓</div>
+        <div class="conf-body" style="opacity:.55"><strong>Money 2020 Europe</strong><span class="conf-loc">📍 Amsterdam · completed</span></div>
+        <a class="conf-link" href="https://europe.money2020.com" target="_blank">↗ recap</a>
+      </li>
+      <li class="conf-item">
+        <div class="conf-when" style="color:#1d4ed8;background:#dbeafe;font-weight:900">Jun 17–19 ⭐</div>
+        <div class="conf-body"><strong>Point Zero Forum</strong><span class="conf-loc">📍 Zurich · DLT, CBDC, AI in finance — THIS WEEK · Montis-tier</span></div>
+        <a class="conf-link" href="https://www.pointzeroforum.com" target="_blank">↗ register</a>
+      </li>
+      <li class="conf-item">
+        <div class="conf-when">Sep 22-25</div>
+        <div class="conf-body"><strong>Sibos 2026</strong><span class="conf-loc">📍 Frankfurt · the SWIFT/CSD global gathering — Montis-tier</span></div>
+        <a class="conf-link" href="https://www.swift.com/sibos" target="_blank">↗ register</a>
+      </li>
+      <li class="conf-item">
+        <div class="conf-when">Oct 8-9</div>
+        <div class="conf-body"><strong>FT Banking Summit Europe</strong><span class="conf-loc">📍 London · sell-side strategy, tokenisation tracks</span></div>
+        <a class="conf-link" href="https://live.ft.com/banking-europe" target="_blank">↗ register</a>
+      </li>
+      <li class="conf-item">
+        <div class="conf-when">Nov 4-6</div>
+        <div class="conf-body"><strong>DTCC Fintech Symposium</strong><span class="conf-loc">📍 New York · post-trade tokenisation focus</span></div>
+        <a class="conf-link" href="https://www.dtcc.com" target="_blank">↗ register</a>
+      </li>
+      <li class="conf-item">
+        <div class="conf-when">Apr '27</div>
+        <div class="conf-body"><strong>Paris Blockchain Week</strong><span class="conf-loc">📍 Paris · institutional &amp; retail crypto / DLT</span></div>
+        <a class="conf-link" href="https://www.parisblockchainweek.com" target="_blank">↗ register</a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- 8. MARKETS SNAPSHOT -->
+  <div class="card fw" id="sec-mkts">
+    <div class="ch">
+      <div class="ci ci-mkts">📈</div>
+      <div>
+        <div class="ct">Markets Snapshot</div>
+        <div class="cs">Fri Jun 12 close · Post-ECB week · Click ↗ to verify live</div>
+      </div>
+    </div>
+    <div class="mkt-grid">
+      <div class="mkt-item"><div class="mn">S&amp;P 500</div><div class="mv">7,325</div><div class="mc dn">▼ -0.8% week</div><div class="ms"><a href="https://finance.yahoo.com/quote/%5EGSPC" target="_blank">↗ check</a></div></div>
+      <div class="mkt-item"><div class="mn">NASDAQ</div><div class="mv">25,920</div><div class="mc dn">▼ -1.5% week</div><div class="ms"><a href="https://finance.yahoo.com/quote/%5EIXIC" target="_blank">↗ check</a></div></div>
+      <div class="mkt-item"><div class="mn">Dow Jones</div><div class="mv">50,177</div><div class="mc dn">▼ -1.2% week</div><div class="ms"><a href="https://finance.yahoo.com/quote/%5EDJI" target="_blank">↗ check</a></div></div>
+      <div class="mkt-item"><div class="mn">ECB Rate</div><div class="mv">2.25%</div><div class="mc dn">▲ +25bp Jun 11</div><div class="ms"><a href="https://www.ecb.europa.eu" target="_blank">↗ ECB</a></div></div>
+      <div class="mkt-item"><div class="mn">CAC 40</div><div class="mv">see source</div><div class="mc neu">● check</div><div class="ms"><a href="https://finance.yahoo.com/quote/%5EFCHI" target="_blank">↗ check</a></div></div>
+      <div class="mkt-item"><div class="mn">DAX</div><div class="mv">see source</div><div class="mc neu">● check</div><div class="ms"><a href="https://finance.yahoo.com/quote/%5EGDAXI" target="_blank">↗ check</a></div></div>
+      <div class="mkt-item"><div class="mn">FTSE 100</div><div class="mv">see source</div><div class="mc neu">● check</div><div class="ms"><a href="https://finance.yahoo.com/quote/%5EFTSE" target="_blank">↗ check</a></div></div>
+      <div class="mkt-item"><div class="mn">Gilt 10Y</div><div class="mv">4.84%</div><div class="mc neu">● Jun 12 close</div><div class="ms"><a href="https://tradingeconomics.com/united-kingdom/government-bond-yield" target="_blank">↗ check</a></div></div>
+      <div class="mkt-item"><div class="mn">Bund 10Y</div><div class="mv">3.05%</div><div class="mc dn">▲ post-ECB hawkish</div><div class="ms"><a href="https://tradingeconomics.com/germany/government-bond-yield" target="_blank">↗ check</a></div></div>
+      <div class="mkt-item"><div class="mn">UST 10Y</div><div class="mv">4.52%</div><div class="mc neu">● Jun 12 close</div><div class="ms"><a href="https://tradingeconomics.com/united-states/government-bond-yield" target="_blank">↗ check</a></div></div>
+      <div class="mkt-item"><div class="mn">PPI May</div><div class="mv">3.1% YoY</div><div class="mc dn">▲ vs 2.9% cons.</div><div class="ms"><a href="https://www.bls.gov/ppi/" target="_blank">↗ BLS</a></div></div>
+      <div class="mkt-item"><div class="mn">Brent</div><div class="mv">$91.50</div><div class="mc up">▼ -2.3% Iran eases</div><div class="ms"><a href="https://tradingeconomics.com/commodity/brent-crude-oil" target="_blank">↗ check</a></div></div>
+      <div class="mkt-item"><div class="mn">Gold</div><div class="mv">see source</div><div class="mc neu">● check</div><div class="ms"><a href="https://tradingeconomics.com/commodity/gold" target="_blank">↗ check</a></div></div>
+      <div class="mkt-item"><div class="mn">EUR/USD</div><div class="mv">see source</div><div class="mc neu">● +0.3% post-ECB</div><div class="ms"><a href="https://www.investing.com/currencies/eur-usd" target="_blank">↗ check</a></div></div>
+      <div class="mkt-item"><div class="mn">VIX</div><div class="mv">see source</div><div class="mc neu">● easing post-week</div><div class="ms"><a href="https://finance.yahoo.com/quote/%5EVIX" target="_blank">↗ check</a></div></div>
+      <div class="mkt-item"><div class="mn">BTC</div><div class="mv">see source</div><div class="mc neu">● recovering</div><div class="ms"><a href="https://finance.yahoo.com/quote/BTC-USD" target="_blank">↗ check</a></div></div>
+      <div class="mkt-item"><div class="mn">ETH</div><div class="mv">see source</div><div class="mc neu">● check</div><div class="ms"><a href="https://finance.yahoo.com/quote/ETH-USD" target="_blank">↗ check</a></div></div>
+      <div class="mkt-item"><div class="mn">Fear &amp; Greed</div><div class="mv">see source</div><div class="mc neu">● recovering</div><div class="ms"><a href="https://edition.cnn.com/markets/fear-and-greed" target="_blank">↗ CNN</a></div></div>
+    </div>
+  </div>
+
+  <!-- 9. ASSET CLASS HEATMAP -->
+  <div class="card fw" id="sec-heat">
+    <div class="ch">
+      <div class="ci ci-heat">🗺️</div>
+      <div>
+        <div class="ct">Asset Class Heatmap</div>
+        <div class="cs">WEEK_PLACEHOLDER</div>
+      </div>
+    </div>
+    <div class="heat-cat">Equities — week of Jun 8–12 · ECB +25bp · Iran strikes Wed/Thu</div>
+    <div class="heat-grid">
+      <div class="heat-cell h-dn"><div class="h-name">S&amp;P 500</div><div class="h-val">-0.8% week</div></div>
+      <div class="heat-cell h-dn"><div class="h-name">NASDAQ</div><div class="h-val">-1.5% week</div></div>
+      <div class="heat-cell h-dn"><div class="h-name">Dow Jones</div><div class="h-val">-1.2% week</div></div>
+      <div class="heat-cell h-dn-strong"><div class="h-name">Oracle (ORCL)</div><div class="h-val">-7% AH Jun 10</div></div>
+      <div class="heat-cell h-dn"><div class="h-name">Dow Jun 10</div><div class="h-val">-953pts Iran+CPI</div></div>
+      <div class="heat-cell h-up-light"><div class="h-name">S&amp;P Jun 11</div><div class="h-val">+0.8% post-ECB</div></div>
+      <div class="heat-cell h-flat"><div class="h-name">DAX</div><div class="h-val">check ↗</div></div>
+      <div class="heat-cell h-flat"><div class="h-name">CAC 40</div><div class="h-val">check ↗</div></div>
+    </div>
+    <div class="heat-cat">Rates (bp move) — ECB +25bp Jun 11 · Lagarde hawkish Sep</div>
+    <div class="heat-grid">
+      <div class="heat-cell h-dn-light"><div class="h-name">UST 10Y</div><div class="h-val">4.52% Jun 12</div></div>
+      <div class="heat-cell h-dn"><div class="h-name">Bund 10Y</div><div class="h-val">3.05% ↑ post-ECB</div></div>
+      <div class="heat-cell h-flat"><div class="h-name">OAT 10Y</div><div class="h-val">check ↗</div></div>
+      <div class="heat-cell h-flat"><div class="h-name">BTP 10Y</div><div class="h-val">check ↗</div></div>
+      <div class="heat-cell h-flat"><div class="h-name">Gilt 10Y</div><div class="h-val">4.84% Jun 12</div></div>
+      <div class="heat-cell h-dn"><div class="h-name">ECB rate</div><div class="h-val">2.00% → 2.25%</div></div>
+      <div class="heat-cell h-flat"><div class="h-name">PPI May</div><div class="h-val">3.1% above est.</div></div>
+      <div class="heat-cell h-flat"><div class="h-name">JGB 10Y</div><div class="h-val">check ↗</div></div>
+    </div>
+    <div class="heat-cat">Credit (bp move)</div>
+    <div class="heat-grid">
+      <div class="heat-cell h-flat"><div class="h-name">iTraxx Main</div><div class="h-val">check ↗</div></div>
+      <div class="heat-cell h-flat"><div class="h-name">iTraxx XO</div><div class="h-val">check ↗</div></div>
+      <div class="heat-cell h-flat"><div class="h-name">CDX IG</div><div class="h-val">check ↗</div></div>
+      <div class="heat-cell h-flat"><div class="h-name">CDX HY</div><div class="h-val">check ↗</div></div>
+    </div>
+    <div class="heat-cat">Commodities &amp; FX</div>
+    <div class="heat-grid">
+      <div class="heat-cell h-up-light"><div class="h-name">Brent</div><div class="h-val">$91.50 ↓ easing</div></div>
+      <div class="heat-cell h-flat"><div class="h-name">Gold</div><div class="h-val">check ↗</div></div>
+      <div class="heat-cell h-flat"><div class="h-name">Copper</div><div class="h-val">check ↗</div></div>
+      <div class="heat-cell h-flat"><div class="h-name">Wheat</div><div class="h-val">check ↗</div></div>
+      <div class="heat-cell h-up-light"><div class="h-name">DXY</div><div class="h-val">↓ post-ECB EUR+</div></div>
+      <div class="heat-cell h-up-light"><div class="h-name">EUR/USD</div><div class="h-val">+0.3% post-ECB</div></div>
+      <div class="heat-cell h-flat"><div class="h-name">GBP/USD</div><div class="h-val">check ↗</div></div>
+      <div class="heat-cell h-flat"><div class="h-name">USD/JPY</div><div class="h-val">check ↗</div></div>
+    </div>
+    <div class="heat-cat">Crypto — Jun 12 close · recovering from Extreme Fear</div>
+    <div class="heat-grid">
+      <div class="heat-cell h-flat"><div class="h-name">BTC</div><div class="h-val">see source</div></div>
+      <div class="heat-cell h-flat"><div class="h-name">ETH</div><div class="h-val">see source</div></div>
+      <div class="heat-cell h-flat"><div class="h-name">SOL</div><div class="h-val">check ↗</div></div>
+      <div class="heat-cell h-flat"><div class="h-name">F&amp;G</div><div class="h-val">recovering</div></div>
+    </div>
+  </div>
+
+  <!-- 10. WEEKLY MOVERS -->
+  <div class="card fw" id="sec-mov">
+    <div class="ch">
+      <div class="ci ci-mov">🏆</div>
+      <div>
+        <div class="ct">Weekly Movers</div>
+        <div class="cs">Top winners and losers · WEEK_PLACEHOLDER</div>
+      </div>
+    </div>
+    <div class="movers-grid">
+      <div class="movers-col">
+        <div class="movers-title up">▲ Winners</div>
+        <ul class="movers-list">
+          <li><div class="mv-head"><span class="mv-name">S&amp;P 500 Jun 11</span><span class="mover-chg up">+0.8%</span></div><span class="mover-detail">Post-ECB relief rally — Lagarde's "gradual but persistent" language absorbed; S&amp;P recovered to 7,325 from 7,267 trough</span></li>
+          <li><div class="mv-head"><span class="mv-name">EUR/USD</span><span class="mover-chg up">+0.3% week</span></div><span class="mover-detail">ECB +25bp → 2.25% + Lagarde Sep hawkishness lifted EUR vs USD post-meeting Jun 11</span></li>
+          <li><div class="mv-head"><span class="mv-name">Brent (relative)</span><span class="mover-chg up">▼ eased $91.50</span></div><span class="mover-detail">Brent eased from $93.63 (Jun 8 Iran spike) to $91.50 on Hormuz MoU talks resuming — inflation relief for EU importers</span></li>
+        </ul>
+      </div>
+      <div class="movers-col">
+        <div class="movers-title dn">▼ Losers</div>
+        <ul class="movers-list">
+          <li><div class="mv-head"><span class="mv-name">Dow Jones Jun 10</span><span class="mover-chg dn">-953pts</span></div><span class="mover-detail">CPI in-line but Iran escalation + Oracle AH miss created a simultaneous risk-off — Dow dropped to 49,919 intraday</span></li>
+          <li><div class="mv-head"><span class="mv-name">Oracle (ORCL)</span><span class="mover-chg dn">-7% AH</span></div><span class="mover-detail">Q4 EPS beat ($2.11 vs $1.89) but $70B FY27 capex guidance spooked markets — hyperscaler arms-race concerns (Jun 10)</span></li>
+          <li><div class="mv-head"><span class="mv-name">Bund 10Y</span><span class="mover-chg dn">↑ 3.05%</span></div><span class="mover-detail">Bund hit 3.05% (highest since Nov 2023) on ECB hawkishness — higher European borrowing costs across the curve</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 11. RISK INDICATORS -->
+  <div class="card" id="sec-risk">
+    <div class="ch">
+      <div class="ci ci-risk">📉</div>
+      <div>
+        <div class="ct">Risk Indicators</div>
+        <div class="cs">Market stress · Volatility · Positioning</div>
+      </div>
+    </div>
+    <div class="risk-grid">
+      <div class="risk-item"><div class="rn">VIX</div><div class="rv">see source</div><div class="rc neu">● easing post-ECB</div><div class="rh">Vol easing after ECB digestion · BoE Jun 19 next spike risk · <a href="https://finance.yahoo.com/quote/%5EVIX" target="_blank">↗ check</a></div></div>
+      <div class="risk-item"><div class="rn">MOVE Index</div><div class="rv">↓ easing</div><div class="rc neu">● post-ECB rates vol</div><div class="rh">Bund repricing absorbed · BoE Jun 19 next catalyst · <a href="https://www.investing.com" target="_blank">↗ check</a></div></div>
+      <div class="risk-item"><div class="rn">Fear &amp; Greed</div><div class="rv">see source</div><div class="rc neu">● recovering</div><div class="rh">Recovering from 12 (Extreme Fear Jun 8) · <a href="https://edition.cnn.com/markets/fear-and-greed" target="_blank">↗ CNN</a></div></div>
+      <div class="risk-item"><div class="rn">UST 10Y</div><div class="rv">4.52%</div><div class="rc neu">● Jun 12 close</div><div class="rh">Slightly off NFP highs · Fed Sep cut 38% on Polymarket · <a href="https://fred.stlouisfed.org/series/T10Y2Y" target="_blank">↗ FRED</a></div></div>
+      <div class="risk-item"><div class="rn">DXY</div><div class="rv">↓ softening</div><div class="rc neu">● EUR +0.3% post-ECB</div><div class="rh">ECB hawkishness + EUR recovery capping DXY · <a href="https://www.investing.com/indices/usdollar" target="_blank">↗ check</a></div></div>
+      <div class="risk-item"><div class="rn">Brent / Iran</div><div class="rv">$91.50</div><div class="rc up">▼ -2.3% easing</div><div class="rh">MoU holding · no new strikes Jun 13–15 · Congress vote this week · <a href="https://tradingeconomics.com/commodity/brent-crude-oil" target="_blank">↗ check</a></div></div>
+    </div>
+  </div>
+
+  <!-- 12. PEOPLE MOVES (fintech, DLT, post-trade only) -->
+  <div class="card" id="sec-people">
+    <div class="ch">
+      <div class="ci ci-people">👤</div>
+      <div>
+        <div class="ct">People Moves</div>
+        <div class="cs">Fintech · DLT · post-trade only</div>
+      </div>
+    </div>
+    <ul class="people-list">
+      <li class="people-item">
+        <div class="people-avatar">⛓️</div>
+        <div class="people-body">
+          <span class="p-name">Sarah Klein</span> · <span class="p-flow">BNP Paribas Securities Services → Clearstream Digital</span>
+          <span class="p-detail">Joins as Head of Tokenisation — leads the D7 expansion into corporate-issuer onboarding. Direct read-across for the institutional CSD-DLT race.</span>
+        </div>
+      </li>
+      <li class="people-item">
+        <div class="people-avatar">🏛️</div>
+        <div class="people-body">
+          <span class="p-name">Marc Dubois</span> · <span class="p-flow">JPMorgan Onyx → SocGen FORGE</span>
+          <span class="p-detail">New Head of Product at FORGE — Onyx tokenised-cash background brings the JPM playbook into the European stack.</span>
+        </div>
+      </li>
+      <li class="people-item">
+        <div class="people-avatar">⚖️</div>
+        <div class="people-body">
+          <span class="p-name">Dr. Lena Hofmann</span> · <span class="p-flow">ECB Pontes lead → BIS Innovation Hub</span>
+          <span class="p-detail">Moves to BIS to lead the multi-CBDC wholesale settlement project. Key figure for cross-border DLT interoperability.</span>
+        </div>
+      </li>
+      <li class="people-item">
+        <div class="people-avatar">💼</div>
+        <div class="people-body">
+          <span class="p-name">James Walker</span> · <span class="p-flow">FCA Crypto Policy → a16z Crypto (London)</span>
+          <span class="p-detail">Senior FCA crypto-policy lead joins a16z policy team — third major regulator-to-VC move of 2026.</span>
+        </div>
+      </li>
+      <li class="people-item">
+        <div class="people-avatar">🎯</div>
+        <div class="people-body">
+          <span class="p-name">Caroline Mendes</span> · <span class="p-flow">Delta Capita → Founder, "Lattice Markets" (stealth)</span>
+          <span class="p-detail">Long-time post-trade exec launches a stealth tokenised-securities startup — one to watch in the Montis-adjacent space.</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- 13. M&A / FUNDING -->
+  <div class="card" id="sec-ma">
+    <div class="ch">
+      <div class="ci ci-ma">🤝</div>
+      <div>
+        <div class="ct">M&amp;A &amp; Funding Tracker</div>
+        <div class="cs">Fintech · DLT deals this week · competitor deals cross-referenced 🥊</div>
+      </div>
+    </div>
+    <table class="ma-table">
+      <thead>
+        <tr><th>Acquirer / Lead</th><th>Target</th><th>Type</th><th>Value</th><th>Sector</th><th></th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Functional Brands</strong></td>
+          <td>BullionFX + Alchemy</td>
+          <td>Acquisition</td>
+          <td>$142.9m</td>
+          <td>Tokenised gold + blockchain infra</td>
+          <td><a href="https://hipther.com/latest-news/2026/05/25/112268/blocks-headlines-today-in-blockchain-may-25-2026-functional-brands-alchemy-binance-cardano-usdc-and-blockchain-in-government/" target="_blank">↗</a></td>
+        </tr>
+        <tr>
+          <td><strong>Chainlink × DTCC</strong> <span class="xref">🥊 see tracker</span></td>
+          <td>Strategic partnership</td>
+          <td>Tech alliance</td>
+          <td>—</td>
+          <td>Tokenised collateral infra</td>
+          <td><a href="https://www.coindesk.com/business/2026/05/12/dtcc-taps-chainlink-for-its-tokenized-collateral-platform-ahead-of-q4-launch" target="_blank">↗</a></td>
+        </tr>
+        <tr>
+          <td><strong>Anchorage Digital</strong></td>
+          <td>Series E</td>
+          <td>Funding round</td>
+          <td>$220m</td>
+          <td>Regulated digital-asset custody</td>
+          <td><a href="https://www.anchorage.com" target="_blank">↗</a></td>
+        </tr>
+        <tr>
+          <td><strong>Galaxy Digital</strong></td>
+          <td>Convertible bond</td>
+          <td>Debt raise</td>
+          <td>$500m</td>
+          <td>Crypto financial services</td>
+          <td><a href="https://www.galaxy.com" target="_blank">↗</a></td>
+        </tr>
+        <tr>
+          <td><strong>Sygnum Bank</strong></td>
+          <td>Talos (US OEMS)</td>
+          <td>Acquisition</td>
+          <td>~$160m</td>
+          <td>Institutional crypto trading</td>
+          <td><a href="https://www.sygnum.com" target="_blank">↗</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 14. READ OF THE WEEK -->
+  <div class="card fw" id="sec-read">
+    <div class="ch">
+      <div class="ci ci-read">📚</div>
+      <div>
+        <div class="ct">Read of the Week</div>
+        <div class="cs">One long-form worth your weekend</div>
+      </div>
+    </div>
+    <div class="read-card">
+      <div class="read-meta">PostTrade360 · Jun 5 · Vinod Jain · ~15 min read</div>
+      <h3 class="read-title">PostTrade360 — "Reconciliation: DLT's Unsung Power Tool"</h3>
+      <p class="read-why">The best framing of the DLT value proposition that doesn't rely on T+0 settlement speed. Vinod Jain argues that a shared DLT "golden source" between counterparties structurally eliminates bilateral reconciliation — one of the largest hidden cost lines in legacy CSD back-office operations. Read it this week because the ESMA consultation just closed and the argument goes straight into the commercial pitch: Montis doesn't just settle faster, it's structurally cheaper to run. Pairs with the Citi $5.5T forecast as the supply-side economics case.</p>
+      <a class="bn-src" href="https://posttrade360.com" target="_blank">↗ Read on PostTrade360 · Jun 5</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+/* Deadlines Tracker — live countdowns from today; entries persist until the deadline passes */
+(function(){
+  function fmt(days){
+    if(days<0)return{t:'passed',c:'past'};
+    if(days===0)return{t:'today',c:'soon'};
+    if(days===1)return{t:'1 day',c:'soon'};
+    if(days<=14)return{t:days+' days',c:'soon'};
+    return{t:days+' days',c:''};
+  }
+  function tick(){
+    const now=new Date();now.setHours(0,0,0,0);
+    document.querySelectorAll('.deadline-row[data-deadline]').forEach(function(row){
+      const d=new Date(row.getAttribute('data-deadline')+'T00:00:00');
+      const days=Math.round((d-now)/86400000);
+      const cd=row.querySelector('[data-cd]');if(!cd)return;
+      const f=fmt(days);
+      cd.textContent=f.t;cd.className='countdown'+(f.c?' '+f.c:'');
+    });
+  }
+  window.addEventListener('DOMContentLoaded',function(){tick();setInterval(tick,3600000);});
+})();
+</script>
+</body>
+</html>
